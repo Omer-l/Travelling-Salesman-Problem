@@ -1,4 +1,4 @@
-package GeneticAlgorithm;
+package genetic;
 
 import java.io.File; //used to get the data from the file
 import java.io.FileNotFoundException; //error in the case of a file is not found.
@@ -23,15 +23,14 @@ public class ApplicationRunner {
     private final int SIZE_OF_GENERATION = 50; // population size
     private final int PROBABILITY_OF_MUTATION = 15; // PROBABILITY_OF_MUTATION / PERCENTAGE chance of getting mutated
     private final int PERCENTAGE = 100; //seed for RANDOM_FOR_PROBABILITY_OF_MUTATION_SEED
-    //	protected final static int NUMBER_OF_THREADS = 256; DELETE POSSIBLY?
-    private static int NUMBER_OF_THREADS = 256;
+    private static int numberOfThreads = 256;
     private AminoAcid[] aminoAcids;
     private int MAXIMUM_TIME = 59; // a second before 60, to allow for thread quitting and choosing the best thread.
     private int numberOfAminoAcids; // number of Amino Acids per gene gene -> population -> generation
     private final Random RANDOM_FOR_PROBABILITY_OF_MUTATION_SEED = new Random();
 
     //error message constant(s)
-    private final static String ERR_MSG_FILE_NOT_FOUND = "\nFILE NOT FOUND";
+    private final String ERR_MSG_FILE_NOT_FOUND = "\nFILE NOT FOUND";
 
     public ApplicationRunner(String fileName) {
         this.file = new File(ROOT_DIRECTORY_OF_FILE + fileName + "/"); // path for data //create constants for user.dir etc..
@@ -60,7 +59,7 @@ public class ApplicationRunner {
         long startTimeForFile = System.currentTimeMillis(); // starts timer
 
 //				maximum number of available threads in the JVM
-        GeneticAlgorithmThread[] threads = new GeneticAlgorithmThread[NUMBER_OF_THREADS];
+        GeneticAlgorithmThread[] threads = new GeneticAlgorithmThread[numberOfThreads];
 
         long elapsedTimeSoFar = (System.currentTimeMillis() - startTimeForFile) / 1000;
         // run threads
@@ -350,7 +349,7 @@ public class ApplicationRunner {
      * @param arr double array to print
      * @return a string containing a single line of double type elements
      */
-    public static String arrayToString(double[] arr) {
+    public String arrayToString(double[] arr) {
         String stringOfElements = "";
         for (double arrayIterator : arr)
             stringOfElements += " " + arrayIterator;
@@ -363,7 +362,7 @@ public class ApplicationRunner {
      * @param arr 2D integer array to print
      * @return a string containing a single line of integer type elements
      */
-    public static String arrayToString(int[][] arr) {
+    public String arrayToString(int[][] arr) {
         String stringOfElements = "";
 
         for (int[] arrayIterator : arr)
@@ -379,7 +378,7 @@ public class ApplicationRunner {
      * @param <Type> type of array (can be any type i.e. AminoAcid)
      * @return a string containing a single line of any type of elements
      */
-    public static <Type> String arrayToString(Type[] arr) {
+    public <Type> String arrayToString(Type[] arr) {
         String stringOfElements = "";
         for (Type wildCardArrayIterator : arr)
             stringOfElements += wildCardArrayIterator + " -> ";

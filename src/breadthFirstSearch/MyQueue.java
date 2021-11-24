@@ -1,6 +1,6 @@
-package DijkstrasApproach;
+package breadthFirstSearch;
 
-public class MyPriorityQueue {
+public class MyQueue {
 
 	private int size = 1;
 	private int backOfQueueIndex = 0;
@@ -30,13 +30,9 @@ public class MyPriorityQueue {
 	}
 
 	public void enqueue(int[] newPath) {
-//		double newPathDistance = ApplicationRunner.calculatePathDistance(newPath);
-//		if (backOfQueueIndex == size)
-//			resize();
-		
-//		for(int currentIndex = frontOfQueueIndex; currentIndex < backOfQueueIndex; currentIndex++) {
-//			if(newPathDistance < ApplicationRunner.calculatePathDistance(k, false))
-//		}
+
+		if (backOfQueueIndex == size)
+			resize();
 
 		arrayOfPaths[backOfQueueIndex] = newPath;
 		backOfQueueIndex++;

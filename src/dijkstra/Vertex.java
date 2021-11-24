@@ -1,4 +1,4 @@
-package DijkstrasApproach;
+package dijkstra;
 
 public class Vertex{
 

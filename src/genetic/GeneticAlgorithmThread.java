@@ -1,4 +1,4 @@
-package GeneticAlgorithm;
+package genetic;
 
 /**
  *	This is the thread file. This file runs the runs the genetic algorithm in the ApplicationRunner.java file.

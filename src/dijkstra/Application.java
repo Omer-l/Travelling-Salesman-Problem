@@ -1,4 +1,4 @@
-package DijkstrasApproach;
+package dijkstra;
 
 /**
  * Procedure dijkstra (G, l, s)
@@ -27,8 +27,6 @@ import java.io.FileNotFoundException;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 

@@ -1,6 +1,5 @@
-package DijkstrasApproach;
+package dijkstra;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 public class PathComparator implements Comparator<Integer[]> {

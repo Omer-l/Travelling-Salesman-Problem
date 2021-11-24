@@ -1,4 +1,4 @@
-package GeneticAlgorithm;
+package genetic;
 
 import static org.junit.Assert.*;
 

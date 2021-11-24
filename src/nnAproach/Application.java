@@ -1,4 +1,4 @@
-package NN_Approach;
+package nnAproach;
 
 import java.io.File;
 import java.io.FileNotFoundException;
