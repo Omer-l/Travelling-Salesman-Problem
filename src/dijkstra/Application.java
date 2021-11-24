@@ -133,8 +133,7 @@ public class Application {
 	
 	/**
 	 * This function gets the distance to all the other unvisited nodes
-	 * 
-	 * @param vertices     All vertices
+	 *
 	 * @param visited      currently visited vertices
 	 * @param currentIndex current point's index
 	 * @return an array of distances to other vertices

@@ -11,8 +11,7 @@ public class Application_TSP_PermutationSolution {
 
 	public static void main(String[] args) {
         Point[] points = getData();
-        
-//        printArray(points); //TESTING PURPOSES
+
         final int numberOfPoints = points.length;
         final int numberOfPermutations = getNumberOfPermutations(numberOfPoints);
         
