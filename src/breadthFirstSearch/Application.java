@@ -5,12 +5,16 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Application {
-	private static File file = new File(System.getProperty("user.dir") + "/Resources/trainProblem2/"); // path for data
+	private static File file = new File(System.getProperty("user.dir") + "/Resources/trainProblem1/"); // path for data
 	protected static Vertex[] vertices; // to be scanned
+	private static double minimumDistance = Double.MAX_VALUE;
+	private static int[] minimumPath = new int[1];
 	
 	public static void main(String[] args) {
 		getData();
+		System.out.println(arrayToString(vertices));
 		breadthFirstSearch(0);
+		System.out.println("MINIMUM PATH: " + arrayToString(minimumPath) + " DISTANCE: " + minimumDistance);
 	}
 	
 	/**
@@ -28,9 +32,9 @@ public class Application {
 			Scanner input = new Scanner(file); // Scanner for reading the data file.
 			while (input.hasNext()) {
 				String[] bits = input.nextLine().split("\\s+");
-				int a = Integer.parseInt(bits[1].trim()); // adds point x
-				int b = Integer.parseInt(bits[2].trim()); // add point y
-				vertices[pointNumber] = new Vertex(a, b); // creates an instance of the class Vertex wit a and b.
+				int a = Integer.parseInt(bits[2].trim()); // adds point x
+				int b = Integer.parseInt(bits[3].trim()); // add point y
+				vertices[pointNumber] = new Vertex(a, b); // creates an instance of the class DataPoint wit a and b.
 				pointNumber++;
 			}
 			input.close(); // close scanners
@@ -84,7 +88,7 @@ public class Application {
 		
 		return pathWithAddedIndex;
 	}
-	
+
 	/**
 	 * This function adds paths to the `queue of paths` from a given path
 	 * @param paths			queue of paths currently in the queue
@@ -92,7 +96,7 @@ public class Application {
 	 */
 	public static void addPathsFromPoint(MyQueue paths, int[] currentPath) {
 		boolean[] visited = getVisitedPoints(currentPath);
-		
+
 		for(int i = 0; i < visited.length; i++) {
 			if(!visited[i]) { //then add unvisited point's index reference to currentPath
 				int[] newPath = addIndextoCurrentPath(currentPath, i);
@@ -104,32 +108,39 @@ public class Application {
 
 	public static void breadthFirstSearch(int startingIndex) {
 		MyQueue paths = new MyQueue();
-		
+
 		int[] initialPath = {startingIndex};
 		paths.enqueue(initialPath);
 		int[] nextPath = paths.dequeue();
 		while(!paths.empty()) {
 			nextPath = paths.dequeue();
 			if(nextPath.length == vertices.length) {
-				System.out.println("HERE ARE THE PATHS: \n");
-				double currentMinimumDistance = calculatePathDistance(nextPath);
-				int[] currentMinimumPath = nextPath;
-				
+				System.out.println("HERE ARE THE PATHS: \n" + arrayToString(nextPath));
+
 				while(!paths.empty()) {
-					nextPath = paths.dequeue();
-					double dequeuedPathDistance = calculatePathDistance(nextPath);
-					if( dequeuedPathDistance < currentMinimumDistance) {
-						currentMinimumDistance =  dequeuedPathDistance;
-						currentMinimumPath = nextPath;
+					int[] currentCompletePath = paths.dequeue();
+					double currentCompletePathDistance = calculatePathDistance(currentCompletePath);
+
+					if(currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
+						minimumDistance = currentCompletePathDistance;
+						minimumPath = currentCompletePath;
+						System.out.println("NEW MIN: " + minimumDistance);
 					}
 				}
-				System.out.println(arrayToString(currentMinimumPath) + " DISTANCE: " + currentMinimumDistance);
-//				System.out.println(arrayToString(currentMinimumPath) + " DISTANCE: " + currentMinimumDistance);
 				break;
 			}
-			System.out.println(arrayToString(nextPath));
 			addPathsFromPoint(paths, nextPath);
 		}
+	}
+
+	/**
+	 * evaluates the front of the dequeued element, and sees if it is the length
+	 * of a complete path.
+	 * @param nextPath		dequeued path (which is an array of integers, for which, each integer is an index of a vertex)
+	 * @return				true if nextPath is a complete path with the same number of elements as there are vertices.
+	 */
+	private static boolean finishedSearching(int[] nextPath) {
+		return nextPath.length >= vertices.length;
 	}
 //	System.out.println(arrayToString(paths.dequeue()));
 	
@@ -143,8 +154,8 @@ public class Application {
 	public static double calculatePathDistance(int[] path) {
 
 		double totalDistance = 0;
-		boolean cycle = path.length == vertices.length; //is it a cycle? then connect end Vertex with starting Vertex.
-		
+		boolean cycle = path.length == vertices.length; //is it a cycle? then connect end DataPoint with starting DataPoint.
+
 		for (int j = 1; j < path.length; j++) {
 			Vertex point1 = vertices[path[j - 1]];
 			Vertex point2 = vertices[path[j]];

@@ -34,7 +34,26 @@ public class MyPriorityQueue {
 		if (backOfQueueIndex == size)
 			resize();
 
-		arrayOfPaths[backOfQueueIndex] = newPath;
+		double newPathDistance = Application.calculatePathDistance(newPath);
+
+		for(int i = 0; i < arrayOfPaths.length; i++) {
+			if(arrayOfPaths[i] == null) {
+				arrayOfPaths[backOfQueueIndex] = newPath;
+				break;
+			}
+			int[] currentPath = arrayOfPaths[i];
+			double currentPathDistance = Application.calculatePathDistance(currentPath);
+
+			if(newPathDistance < currentPathDistance) {
+				int[][] newArray = new int[arrayOfPaths.length + 1][];
+				newArray[i] = newPath;
+
+				System.arraycopy(arrayOfPaths, i, newArray, i+1, arrayOfPaths.length - i);
+
+				arrayOfPaths = newArray;
+				break;
+			}
+		}
 		backOfQueueIndex++;
 	}
 
@@ -49,5 +68,10 @@ public class MyPriorityQueue {
 		} else {
 			return arrayOfPaths[frontOfQueueIndex++];
 		}
+	}
+
+	@Override
+	public String toString() {
+		return Application.arrayToString(arrayOfPaths);
 	}
 }

@@ -117,7 +117,7 @@ public class ApplicationRunner {
                 String[] splittedLine = fileInput.nextLine().split("\\s+");
                 int dataX = Integer.parseInt(splittedLine[1].trim()); // adds point x
                 int dataY = Integer.parseInt(splittedLine[2].trim()); // add point y
-                aminoAcids[pointNumber] = new AminoAcid(dataX, dataY); // creates an instance of the class Vertex wit dataX and dataY.
+                aminoAcids[pointNumber] = new AminoAcid(dataX, dataY); // creates an instance of the class DataPoint wit dataX and dataY.
                 pointNumber++;
             }
             fileInput.close(); // close scanners

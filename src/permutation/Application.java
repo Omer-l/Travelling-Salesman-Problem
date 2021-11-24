@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Application_TSP_PermutationSolution {
+public class Application {
 	public static int[][] permutations;
 	public static int permutationCounter = 0;
 
@@ -30,8 +30,7 @@ public class Application_TSP_PermutationSolution {
 		
 	/**
 	 * Start with 1st point number (first point is point 1). function assumes that the tour will
-	 * return to the first point after the last.
-	 * point listed.
+	 * return to the first point after the last point visited.
 	 * @param points			points to travel to
 	 * @param permutations		all the possible routes.
 	 */

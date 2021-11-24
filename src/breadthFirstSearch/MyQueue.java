@@ -18,7 +18,7 @@ public class MyQueue {
 	}
 
 	public int[] peek() {
-		return arrayOfPaths[backOfQueueIndex - 1];
+		return arrayOfPaths[backOfQueueIndex];
 	}
 
 	public boolean empty() {
