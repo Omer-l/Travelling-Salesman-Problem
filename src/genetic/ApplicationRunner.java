@@ -18,6 +18,7 @@ import java.util.Scanner; //used to take in the data from the data file
 public class ApplicationRunner {
     //file and directory path constants
     private static File file;
+    private static String fileName;
     private final String ROOT_DIRECTORY_OF_FILE = System.getProperty("user.dir") + "/Resources/";
     //genetic algorithm constants and variables
     private final int SIZE_OF_GENERATION = 50; // population size
@@ -55,7 +56,7 @@ public class ApplicationRunner {
      * @param args array of arguments that can be made for this file before running it.
      */
     public static void main(String[] args) {
-
+        ApplicationRunner application = new ApplicationRunner("test4_2020");
         long startTimeForFile = System.currentTimeMillis(); // starts timer
 
 //				maximum number of available threads in the JVM
@@ -64,7 +65,7 @@ public class ApplicationRunner {
         long elapsedTimeSoFar = (System.currentTimeMillis() - startTimeForFile) / 1000;
         // run threads
         for (int threadIterator = 0; threadIterator < threads.length || elapsedTimeSoFar >= 59; threadIterator++) {
-            threads[threadIterator] = new GeneticAlgorithmThread("THREAD " + threadIterator, file.getName());
+            threads[threadIterator] = new GeneticAlgorithmThread("THREAD " + threadIterator, application.file.getName());
             threads[threadIterator].run(); // TEST PROBLEMS 2020 WILL NOT WORK BECAUSE OF GETDATA FUNCTION
 
             if (elapsedTimeSoFar >= 59) { // end this genetic algorithm search.

@@ -9,7 +9,9 @@ public class AllTests {
 	@Test
 	public void testDijkstras() {
 		Application app = new Application();
-		app.dikstrasAlgorithm(0);
+//		app.dikstrasAlgorithm(0);
+		app.dikstrasAlgorithm(new int[] {10, 26, 7, 22, 4, 6, 23, 9, 2, 17, 5, 30, 32, 11, 20, 16, 8, 24, 27, 21, 19, 15, 13, 12, 18, 31, 3, 1, 25, 29, 14, 28,});
+
 	}
 	
 	@Test

@@ -27,7 +27,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Application {
-	private static File file = new File(System.getProperty("user.dir") + "/Resources/test1_2020/"); // path for data
+	private static File file = new File(System.getProperty("user.dir") + "/Resources/test4_2020/"); // path for data
 	protected static DataPoint[] vertices; // to be scanned
 	private static double minimumDistance = Double.MAX_VALUE;
 	private static int[] minimumPath = new int[1];
@@ -35,7 +35,7 @@ public class Application {
 	public static void main(String[] args) {
 		getData();
 		System.out.println(arrayToString(vertices));
-		dikstrasAlgorithm(0);
+		dikstrasAlgorithm(new int[] {0});
 		System.out.println("MINIMUM PATH: " + arrayToString(minimumPath) + " DISTANCE: " + minimumDistance);
 	}
 
@@ -54,8 +54,8 @@ public class Application {
 			Scanner input = new Scanner(file); // Scanner for reading the data file.
 			while (input.hasNext()) {
 				String[] bits = input.nextLine().split("\\s+");
-				int a = Integer.parseInt(bits[2].trim()); // adds point x
-				int b = Integer.parseInt(bits[3].trim()); // add point y
+				int a = Integer.parseInt(bits[1].trim()); // adds point x
+				int b = Integer.parseInt(bits[2].trim()); // add point y
 				vertices[pointNumber] = new DataPoint(a, b); // creates an instance of the class DataPoint wit a and b.
 				pointNumber++;
 			}
@@ -128,10 +128,10 @@ public class Application {
 		}
 	}
 
-	public static void dikstrasAlgorithm(int startingIndex) {
+	public static void dikstrasAlgorithm(int[] startingPath) {
 		MyPriorityQueue paths = new MyPriorityQueue();
 
-		int[] initialPath = {startingIndex};
+		int[] initialPath = startingPath;
 		paths.enqueue(initialPath);
 		int[] nextPath = paths.dequeue();
 		while(!paths.empty()) {
