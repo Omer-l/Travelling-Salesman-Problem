@@ -4,7 +4,7 @@ import  genetic.*; //to create instances of the GeneticAlgorithm and GeneticAlgo
 import static genetic.GeneticAlgorithmThread.getThreadWithMinimumPathGene; //for finding the best thread that contains the best gene.
 
 /**
- * This file contains my best algorithm for the Travelling Salesman Problem
+ * This file contains the best algorithm for the Travelling Salesman Problem
  * The file creates many threads. For each thread, there is a new instance of the genetic algorithm.
  * All threads/algorithms are stopped after 59 seconds. Then, the threads are all evaluated and the thread
  * with the best parent (also known as, the best path to all the cities) will be nominated.
@@ -14,7 +14,7 @@ import static genetic.GeneticAlgorithmThread.getThreadWithMinimumPathGene; //for
  */
 public class ApplicationBestAlgorithmRunner {
     //static constants
-    private final static String ABSOLUTE_FILE_PATH = System.getProperty("user.dir") + "/Resources/test4_2018"; //absolute path to the file
+    private final static String ABSOLUTE_FILE_PATH = System.getProperty("user.dir") + "/Resources/test4_2019"; //absolute path to the file
     private final static long MAXIMUM_TIME = 59000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
     private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer
 

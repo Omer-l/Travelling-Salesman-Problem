@@ -76,7 +76,7 @@ public class GeneticAlgorithmThread implements Runnable{
 
 	@Override
 	public String toString() {
-		return threadName + "PATH: [" + GeneticAlgorithm.arrayToString(bestPath) + " " + (bestPath[0]+1) + " ] ->  DISTANCE: " + bestPathDistance;
+		return "PATH: [" + GeneticAlgorithm.arrayToString(bestPath) + " " + (bestPath[0]+1) + " ] ->  DISTANCE: " + bestPathDistance;
 	}
 
 }
