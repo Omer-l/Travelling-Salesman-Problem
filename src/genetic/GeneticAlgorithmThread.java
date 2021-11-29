@@ -1,7 +1,7 @@
 package genetic;
 
 /**
- *	This is the thread file. This file runs the runs the genetic algorithm in the ApplicationRunner.java file.
+ *	This is the thread file. This file runs the genetic algorithm in the ApplicationRunner.java file.
  *
  *		Using the run() function, this file enables multiple threads to run parallel, in the hope that the
  *		genetic algorithm can be completed faster.
@@ -17,72 +17,65 @@ package genetic;
  */
 
 public class GeneticAlgorithmThread implements Runnable{
-	private final String fileName;
 	private final String threadName;
 	private double bestPathDistance = Double.MAX_VALUE;
 	private int[] bestPath;
 	private boolean exit = false;
-	private final int MAXIMUM_GENERATIONS = 1000;
+	private final int maximumGenerations;
+	private final GeneticAlgorithm geneticAlgorithm;
 	
 	
-	public GeneticAlgorithmThread(String threadName, String fileName) {
+	public GeneticAlgorithmThread(String threadName,int maximumGenerations, GeneticAlgorithm geneticAlgorithm) {
 		this.threadName = threadName;
-		this.fileName = fileName;
+		this.maximumGenerations = maximumGenerations;
+		this.geneticAlgorithm = geneticAlgorithm;
 	}
 
 	@Override
 	public void run() {
-		ApplicationRunner app = new ApplicationRunner(fileName);
-		app.setAminoAcids(app.getData());
-		app.setNumberOfAminoAcids(app.getAminoAcids().length);
 		
-		int[][] populationOfGenes = app.initialisePopulationOfGenes();
+		int[][] populationOfGenes = geneticAlgorithm.initialisePopulationOfGenes();
 
-		for (int generationIterator = 0; generationIterator < MAXIMUM_GENERATIONS; generationIterator++) {
+		for (int generationIterator = 0; generationIterator < maximumGenerations; generationIterator++) {
 			
 			if(exit)
 				break;
 			
-			int indexOfParent = app.getBestGeneIndex(populationOfGenes);
+			int indexOfParent = geneticAlgorithm.getBestGeneIndex(populationOfGenes);
 			
 			int[] parent = populationOfGenes[indexOfParent];
-			double parentDistance = app.calculatePathDistance(parent);
+			double parentDistance = geneticAlgorithm.calculatePathDistance(parent);
 
-			if(parentDistance < bestPathDistance) { //new global best parent.
+			if(parentDistance < bestPathDistance) { //new global best parent .
 				bestPathDistance = parentDistance;
 				bestPath = parent;
 			}
-			populationOfGenes = app.generateNextGenerationUsingParent(parent);
+			populationOfGenes = geneticAlgorithm.generateNextGenerationUsingParent(parent);
 		}
 		
 	}
-	
-	public String getFileName() {
-		return fileName;
-	}
 
-	public String getThreadName() {
-		return threadName;
+	/**
+	 * This function goes through each thread that is run and chooses the thread with the best path for the TSP
+	 *
+	 * @param threads 	array of threads to be evaluated
+	 * @return 			the thread that contains the minimum distance and path.
+	 */
+	public static GeneticAlgorithmThread getThreadWithMinimumPathGene(GeneticAlgorithmThread[] threads) {
+		GeneticAlgorithmThread shortestDistanceThread = threads[0];
+
+		for (GeneticAlgorithmThread thread : threads)
+			if (thread != null) { //guard that ensures a null thread is not accessed.
+				if (thread.getBestPathDistance() < shortestDistanceThread.getBestPathDistance())
+					shortestDistanceThread = thread;
+			} else //there exists no more threads
+				break;
+
+		return shortestDistanceThread;
 	}
 
 	public double getBestPathDistance() {
 		return bestPathDistance;
-	}
-
-	public int[] getBestPath() {
-		return bestPath;
-	}
-
-	public void setBestPathDistance(double bestPathDistance) {
-		this.bestPathDistance = bestPathDistance;
-	}
-
-	public void setBestPath(int[] bestPath) {
-		this.bestPath = bestPath;
-	}
-
-	public boolean exit() {
-		return exit;
 	}
 
 	public void setExit(boolean exit) {
@@ -91,7 +84,7 @@ public class GeneticAlgorithmThread implements Runnable{
 
 	@Override
 	public String toString() {
-		return threadName + " - FILE: " + fileName + " - PATH: [" + ApplicationRunner.arrayToString(bestPath) + " ] ->  DISTANCE: " + bestPathDistance;
+		return threadName + " - PATH: [" + GeneticAlgorithm.arrayToString(bestPath) + " ] ->  DISTANCE: " + bestPathDistance;
 	}
 
 }
