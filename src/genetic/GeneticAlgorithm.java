@@ -3,19 +3,8 @@ package genetic;
 import java.util.Random; //Used for the seed for the probability of mutation. That is, for each index in a gene.
 import main.DataPoint; //The class that represents the cities. In this case, amino acids.
 
-/**
- * This is the main file. This file runs threads that use genetic algorithm functions in this file.
- * Begins with creating a generation, for which, each gene in the generation contains randomised indexes of
- * possible paths. A group of amino acids' indices will form a gene.
- * Chooses the best gene from the generation of genes. This is called the parent.
- * Then this algorithm produces offsprings from one parent.
- * After producing an offspring, each index of the offspring has a probability of being mutated.
- * The mutation for this genetic algorithms modifies the path by swapping the indexes between two cities. (One
- * is the mutated index, and the other is a randomised index.)
- */
-
 // THE TABLE BELOW SHOWS MY RESULTS
-//																																												 GENETIC ALGORITHM BEST
+//																																												MY GENETIC ALGORITHM's BEST
 //- FILE: test1_2018 - PATH: [ 7 1 10 11 2 9 4 8 5 3 12 6 ] 																							   					-> DISTANCE: 273.85967307938483
 //- FILE: test2_2018 - PATH: [ 9 3 5 12 4 2 11 7 1 13 6 14 8 10 ]	 																										-> DISTANCE: 661.494844616538
 //- FILE: test3_2018 - PATH: [ 6 5 4 14 12 8 13 11 2 9 10 1 15 7 16 17 3 ] 																									-> DISTANCE: 126265.42652170827
@@ -29,6 +18,16 @@ import main.DataPoint; //The class that represents the cities. In this case, ami
 //- FILE: test3_2020 - PATH: [ 13 17 1 12 4 10 15 3 14 11 6 16 5 2 9 18 8 7] 																								-> DISTANCE: 135664.84173227008
 //- ^FILE: test4_2020 - PATH: [ 24 27 21 19 13 15 31 12 18 3 1 25 29 14 28 20 11 32 9 6 23 2 17 5 30 4 22 7 16 26 10 8 ] 													-> DISTANCE: 613804.1893564754
 
+/**
+ * This file contains the necessary functions for the genetic algorithm.
+ * Begins with creating a generation, for which, each gene in the generation contains randomised indexes of
+ * possible paths. A group of amino acids' indices will form a gene.
+ * Chooses the best gene from the generation of genes. This is called the parent.
+ * Then this algorithm produces offsprings from one parent.
+ * After producing an offspring, each index of the offspring has a probability of being mutated.
+ * The mutation for this genetic algorithms modifies the path by swapping the indexes between two cities. (One
+ * is the mutated index, and the other is a randomised index.)
+ */
 public class GeneticAlgorithm {
 
     //genetic algorithm constants and variables
@@ -48,7 +47,7 @@ public class GeneticAlgorithm {
     }
 
     /**
-     * Generates a population of genes. Each index of a gene is the index of a city/amino acid.
+     * Generates a population of genes. Each index of a gene is an index of a city/amino acid.
      * @return an arbitrarily created population of genes. For any gene has no duplicate indexes.
      */
     public int[][] initialisePopulationOfGenes() {
@@ -253,6 +252,8 @@ public class GeneticAlgorithm {
 
         return stringOfElements;
     }
+
+    // ***********   getters/setters below. ************
 
     public DataPoint[] getAminoAcids() {
         return aminoAcids;

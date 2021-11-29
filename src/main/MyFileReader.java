@@ -33,13 +33,13 @@ public class MyFileReader {
 	                String[] splittedLine = fileInput.nextLine().split(regex);
 	                int dataX = Integer.parseInt(splittedLine[1].trim()); // adds point x
 	                int dataY = Integer.parseInt(splittedLine[2].trim()); // add point y
-	                dataPoints[pointNumber] = new DataPoint(dataX, dataY); // creates an instance of the class DataPoint wit dataX and dataY.
+	                dataPoints[pointNumber] = new DataPoint(dataX, dataY); // creates an instance of the class DataPoint with dataX and dataY.
 	                pointNumber++;
 	            }
 	            fileInput.close(); // close scanners
-	        } catch (FileNotFoundException DATA_FILENotFoundException) {
+	        } catch (FileNotFoundException fileNotFoundException) {
 	            System.out.println(ERR_MSG_FILE_NOT_FOUND);
-	            DATA_FILENotFoundException.printStackTrace();
+	            fileNotFoundException.printStackTrace();
 	        }
 
 	        return dataPoints;

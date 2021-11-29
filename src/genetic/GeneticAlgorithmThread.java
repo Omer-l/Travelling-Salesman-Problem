@@ -1,32 +1,24 @@
 package genetic;
 
 /**
- *	This is the thread file. This file runs the genetic algorithm in the ApplicationRunner.java file.
- *
- *		Using the run() function, this file enables multiple threads to run parallel, in the hope that the
- *		genetic algorithm can be completed faster.
- *
- *		Chooses the best gene from the generation of genes. This is called the parent.
- *
- *		Then this algorithm produces offsprings from one parent.
- *
- *		After producing an offspring, each index of the offspring has a probability of being mutated.
- *
- *		The mutation for this genetic algorithms modifies the path by swapping the indexes between two cities (One
- *		is the mutated index, and the other is a randomised index
+ *	This is the thread class. An instance of this class runs the genetic algorithm.
+ *	The class enables multiple threads to run parallel, in the hope that multiple
+ *	genetic algorithms can be completed faster than if they were to run separately
+ *	in a for loop.
+ *	As the genetic algorithm is run, the best gene from the generation of genes
+ *	is chosen, and stored as 'bestPath' and 'bestPathDistance' in this thread.
  */
 
 public class GeneticAlgorithmThread implements Runnable{
-	private final String threadName;
-	private double bestPathDistance = Double.MAX_VALUE;
-	private int[] bestPath;
-	private boolean exit = false;
-	private final int maximumGenerations;
-	private final GeneticAlgorithm geneticAlgorithm;
+
+	private double bestPathDistance = Double.MAX_VALUE; //keeps track of the best distance, kept MAX_VALUE as a start
+	private int[] bestPath; //keeps track of the best complete path so far.
+	private boolean exit = false; //exits thread when true
+	private final int maximumGenerations; //maximum generations to run the genetic algorithm
+	private final GeneticAlgorithm geneticAlgorithm; //instance of the genetic algorithm to run.
 	
 	
 	public GeneticAlgorithmThread(String threadName,int maximumGenerations, GeneticAlgorithm geneticAlgorithm) {
-		this.threadName = threadName;
 		this.maximumGenerations = maximumGenerations;
 		this.geneticAlgorithm = geneticAlgorithm;
 	}
@@ -84,7 +76,7 @@ public class GeneticAlgorithmThread implements Runnable{
 
 	@Override
 	public String toString() {
-		return threadName + " - PATH: [" + GeneticAlgorithm.arrayToString(bestPath) + " ] ->  DISTANCE: " + bestPathDistance;
+		return threadName + "PATH: [" + GeneticAlgorithm.arrayToString(bestPath) + " " + (bestPath[0]+1) + " ] ->  DISTANCE: " + bestPathDistance;
 	}
 
 }
