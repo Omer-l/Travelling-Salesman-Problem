@@ -1,14 +1,16 @@
 package breadthFirstSearch;
 
+import main.DataPoint;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Application {
 	private static File file = new File(System.getProperty("user.dir") + "/Resources/trainProblem1/"); // path for data
-	protected static Vertex[] vertices; // to be scanned
+	protected static DataPoint[] vertices; // to be scanned
 	private static double minimumDistance = Double.MAX_VALUE;
-	private static int[] minimumPath = new int[1];
+	private static int[] minimumPath = new int[1]; // temporarily create an instance of this array.
 	
 	public static void main(String[] args) {
 		getData();
@@ -24,7 +26,7 @@ public class Application {
 	 */
 	public static void getData() {
 
-		vertices = new Vertex[getNumberOfTrainingSets()]; // An array of Vertexs
+		vertices = new DataPoint[getNumberOfTrainingSets()]; // An array of Vertexs
 
 		int pointNumber = 0; // current index in array of Vertexs
 
@@ -34,7 +36,7 @@ public class Application {
 				String[] bits = input.nextLine().split("\\s+");
 				int a = Integer.parseInt(bits[2].trim()); // adds point x
 				int b = Integer.parseInt(bits[3].trim()); // add point y
-				vertices[pointNumber] = new Vertex(a, b); // creates an instance of the class DataPoint wit a and b.
+				vertices[pointNumber] = new DataPoint(a, b); // creates an instance of the class DataPoint wit a and b.
 				pointNumber++;
 			}
 			input.close(); // close scanners
@@ -157,18 +159,18 @@ public class Application {
 		boolean cycle = path.length == vertices.length; //is it a cycle? then connect end DataPoint with starting DataPoint.
 
 		for (int j = 1; j < path.length; j++) {
-			Vertex point1 = vertices[path[j - 1]];
-			Vertex point2 = vertices[path[j]];
+			DataPoint point1 = vertices[path[j - 1]];
+			DataPoint point2 = vertices[path[j]];
 
 			totalDistance += point1.getDistanceTo(point2);
 		}
 
 		if (cycle) { // ensures a cycle is made in the graph
 			// Get endVertex to startVertex to create a cycle
-			Vertex endVertex = vertices[path[path.length - 1]];
-			Vertex startVertex = vertices[path[0]];
+			DataPoint endDataPoint = vertices[path[path.length - 1]];
+			DataPoint startDataPoint = vertices[path[0]];
 
-			totalDistance += endVertex.getDistanceTo(startVertex);
+			totalDistance += endDataPoint.getDistanceTo(startDataPoint);
 		}
 
 		return totalDistance;
