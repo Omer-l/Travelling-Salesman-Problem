@@ -27,7 +27,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Application {
-	private static File file = new File(System.getProperty("user.dir") + "/Resources/test4_2020/"); // path for data
+	private static File file = new File(System.getProperty("user.dir") + "/Resources/trainProblem2/"); // path for data
 	protected static DataPoint[] vertices; // to be scanned
 	private static double minimumDistance = Double.MAX_VALUE;
 	private static int[] minimumPath = new int[1];
@@ -54,8 +54,8 @@ public class Application {
 			Scanner input = new Scanner(file); // Scanner for reading the data file.
 			while (input.hasNext()) {
 				String[] bits = input.nextLine().split("\\s+");
-				int a = Integer.parseInt(bits[1].trim()); // adds point x
-				int b = Integer.parseInt(bits[2].trim()); // add point y
+				int a = Integer.parseInt(bits[2].trim()); // adds point x
+				int b = Integer.parseInt(bits[3].trim()); // add point y
 				vertices[pointNumber] = new DataPoint(a, b); // creates an instance of the class DataPoint wit a and b.
 				pointNumber++;
 			}
@@ -188,11 +188,11 @@ public class Application {
 		}
 
 		if (cycle) { // ensures a cycle is made in the graph
-			// Get endVertex to startDataPoint to create a cycle
+			// Get endVertex to startVertex to create a cycle
 			DataPoint endVertex = vertices[path[path.length - 1]];
-			DataPoint startDataPoint = vertices[path[0]];
+			DataPoint startVertex = vertices[path[0]];
 
-			totalDistance += endVertex.getDistanceTo(startDataPoint);
+			totalDistance += endVertex.getDistanceTo(startVertex);
 		}
 
 		return totalDistance;

@@ -1,20 +1,25 @@
 package breadthFirstSearch;
 
 import static org.junit.Assert.*;
-
+import main.DataPoint;
+import main.MyFileReader;
 import org.junit.Test;
 
 public class AllTests {
 
 	@Test
 	public void testBreadthFirstSearch() {
-		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm();
-		app.breadthFirstSearch(0);
+		MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir") + "/Resources/trainProblem2");
+		DataPoint[] dataPoints = fileReader.getData();
+		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm(dataPoints);
+		app.runBreadthFirstSearch(0);
 	}
 	
 	@Test
 	public void testaddPathsFromPoint() {
-		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm();
+		MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir") + "/Resources/trainProblem2");
+		DataPoint[] dataPoints = fileReader.getData();
+		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm(dataPoints);
 		MyQueue paths = new MyQueue();
 		
 		int[] initialPath = {0, 3};
@@ -26,8 +31,9 @@ public class AllTests {
 	
 	@Test
 	public void testGetVisitedPoints() {
-		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm();
-		app.getData();
+		MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir") + "/Resources/trainProblem1");
+		DataPoint[] dataPoints = fileReader.getData();
+		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm(dataPoints);
 		
 		int[] path = {1, 2};
 		
@@ -57,8 +63,8 @@ public class AllTests {
 		queueOfPaths.enqueue(newPath2);
 		queueOfPaths.enqueue(newPath3);
 
-		int[] expecteds = { 1, 2, 3, 4 };
-		int[] actuals = queueOfPaths.peek();
+		int[] expecteds = { 1, 2 };
+		int[] actuals = queueOfPaths.dequeue();
 
 		assertArrayEquals(expecteds, actuals);
 	}

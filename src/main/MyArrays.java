@@ -10,7 +10,7 @@ public class MyArrays {
     public static String toString(int[] arr) {
         String s = "";
         for (int i : arr)
-            s += " " + (i);
+            s += " " + (i+1);
         return s;
     }
 

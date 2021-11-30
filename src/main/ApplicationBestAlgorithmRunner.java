@@ -50,7 +50,7 @@ public class ApplicationBestAlgorithmRunner {
     //runs the genetic algorithm threads and returns the thread with the best gene.
 	public static GeneticAlgorithmThread runGeneticAlgorithm() {
         final MyFileReader fileReader = new MyFileReader(ABSOLUTE_FILE_PATH); //reads in the data.
-        final DataPoint[] aminoAcids = fileReader.getData(); //city objects, each city has a x and a y coordinate
+        final DataPoint[] aminoAcids = fileReader.getData(); //city objects, each city has an x and a y coordinate
         final int probabilityOfMutation = 15; //probability than a city will be mutated and swapped places
         final int sizeOfGeneration = 50; //size of each generation
         final int maximumGenerations = 1000; //maximum number of generations.
@@ -62,8 +62,8 @@ public class ApplicationBestAlgorithmRunner {
         for (int threadIterator = 0; threadIterator < geneticAlgorithmThreads.length && !(passedMaximumTime()); threadIterator++) {
             //new instance of algorithm to run in the thread
             GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(sizeOfGeneration, probabilityOfMutation, aminoAcids);
-            //new instance ocommf thread that runs genetic algorithm and all of it's generations.
-            geneticAlgorithmThreads[threadIterator] = new GeneticAlgorithmThread("THREAD " + threadIterator, maximumGenerations, geneticAlgorithm);
+            //new instance of thread that runs genetic algorithm and all of its generations.
+            geneticAlgorithmThreads[threadIterator] = new GeneticAlgorithmThread(maximumGenerations, geneticAlgorithm);
             //run the instance of the thread containing the algorithm.
             geneticAlgorithmThreads[threadIterator].run(); // TEST PROBLEMS 2020 WILL NOT WORK BECAUSE OF GETDATA() FUNCTION
 

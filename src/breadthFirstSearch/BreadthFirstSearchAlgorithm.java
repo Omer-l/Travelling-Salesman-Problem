@@ -4,7 +4,7 @@ import main.DataPoint; //data of each vertex.
 import main.MyArrays; //printing arrays
 
 public class BreadthFirstSearchAlgorithm {
-	private DataPoint[] vertices; // to be scanned
+	private final DataPoint[] vertices; // to be scanned
 	private double minimumDistance = Double.MAX_VALUE;
 	private int[] minimumPath = new int[1]; // temporarily create an instance of this array.
 
@@ -61,12 +61,12 @@ public class BreadthFirstSearchAlgorithm {
 	 * This is the function that runs the breadth first search algorithm
 	 * @param startingIndex		index to start algorithm from.
 	 */
-	public void breadthFirstSearch(int startingIndex) {
+	public void runBreadthFirstSearch(int startingIndex) {
 		MyQueue paths = new MyQueue();
 
 		int[] initialPath = {startingIndex};
 		paths.enqueue(initialPath);
-		int[] nextPath = paths.dequeue();
+		int[] nextPath;
 		while(!paths.empty()) {
 			nextPath = paths.dequeue();
 			if(nextPath.length == vertices.length) {
@@ -97,7 +97,6 @@ public class BreadthFirstSearchAlgorithm {
 	private boolean finishedSearching(int[] nextPath) {
 		return nextPath.length >= vertices.length;
 	}
-//	System.out.println(arrayToString(paths.dequeue()));
 	
 	/**
 	 * This function calculates the distance between vertices
@@ -129,4 +128,20 @@ public class BreadthFirstSearchAlgorithm {
 		return totalDistance;
 	}
 
+	public DataPoint[] getVertices() {
+		return vertices;
+	}
+
+	public double getMinimumDistance() {
+		return minimumDistance;
+	}
+
+	public int[] getMinimumPath() {
+		return minimumPath;
+	}
+
+	@Override
+	public String toString() {
+		return "Breadth First Search - Best Path: " + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - distance: " + minimumDistance;
+	}
 }

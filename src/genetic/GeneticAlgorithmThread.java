@@ -1,5 +1,7 @@
 package genetic;
 
+import main.MyArrays;
+
 /**
  *	This is the thread class. An instance of this class runs the genetic algorithm.
  *	The class enables multiple threads to run parallel, in the hope that multiple
@@ -18,21 +20,22 @@ public class GeneticAlgorithmThread implements Runnable{
 	private final GeneticAlgorithm geneticAlgorithm; //instance of the genetic algorithm to run.
 	
 	
-	public GeneticAlgorithmThread(String threadName,int maximumGenerations, GeneticAlgorithm geneticAlgorithm) {
+	public GeneticAlgorithmThread(int maximumGenerations, GeneticAlgorithm geneticAlgorithm) {
 		this.maximumGenerations = maximumGenerations;
 		this.geneticAlgorithm = geneticAlgorithm;
 	}
 
+	/**
+	 * Runs the genetic algorithm, creating the generations and choosing the best parents until exit or
+	 * generationIterator is at maximum number of generations
+	 */
 	@Override
 	public void run() {
 		
 		int[][] populationOfGenes = geneticAlgorithm.initialisePopulationOfGenes();
 
-		for (int generationIterator = 0; generationIterator < maximumGenerations; generationIterator++) {
-			
-			if(exit)
-				break;
-			
+		for (int generationIterator = 0; generationIterator < maximumGenerations && exit ; generationIterator++) {
+
 			int indexOfParent = geneticAlgorithm.getBestGeneIndex(populationOfGenes);
 			
 			int[] parent = populationOfGenes[indexOfParent];
@@ -66,17 +69,24 @@ public class GeneticAlgorithmThread implements Runnable{
 		return shortestDistanceThread;
 	}
 
+	/**
+	 * returns the best path's distance.
+	 */
 	public double getBestPathDistance() {
 		return bestPathDistance;
 	}
 
+	/**
+	 * When exit is true, the for loop in the run function will stop
+	 */
 	public void setExit(boolean exit) {
 		this.exit = exit;
 	}
 
 	@Override
 	public String toString() {
-		return "PATH: [" + GeneticAlgorithm.arrayToString(bestPath) + " " + (bestPath[0]+1) + " ] ->  DISTANCE: " + bestPathDistance;
+		int startingIndex = bestPath[0]+1; //to print a path, that is, a cycle that returns to the starting index in the path
+		return "PATH: [" + MyArrays.toString(bestPath) + " " + startingIndex + " ] ->  DISTANCE: " + bestPathDistance;
 	}
 
 }
