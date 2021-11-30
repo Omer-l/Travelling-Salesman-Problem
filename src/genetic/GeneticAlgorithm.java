@@ -198,46 +198,6 @@ public class GeneticAlgorithm {
         return offspring;
     }
 
-    /**
-     * Adds all elements of an integer array to a single line string
-     * @param arr   an array to print
-     * @return      a string containing a single line of integer type elements
-     */
-    public static String arrayToString(int[] arr) {
-        String stringOfElements = "";
-        for (int arrayIterator : arr)
-            stringOfElements += " " + (arrayIterator + 1);
-        return stringOfElements;
-    }
-
-    /**
-     * Adds all elements of a 2D String array to a single line string
-     * @param arr 2D integer array to print
-     * @return a string containing a single line of integer type elements
-     */
-    public String arrayToString(int[][] arr) {
-        String stringOfElements = "";
-
-        for (int[] arrayIterator : arr)
-            stringOfElements += "" + arrayToString(arrayIterator);
-
-        return stringOfElements;
-    }
-
-    /**
-     * Adds all elements of a 2D String array to a single line string
-     * @param arr       an array of any type to print
-     * @param <T>       type of array (can be any type i.e. DataPoint)
-     * @return          a string containing a single line of any type of elements
-     */
-    public <T> String arrayToString(T[] arr) {
-        String stringOfElements = "";
-        for (T wildCardArrayIterator : arr)
-            stringOfElements += wildCardArrayIterator + " -> ";
-
-        return stringOfElements;
-    }
-
     // ***********   getters/setters below. ************
 
     public DataPoint[] getAminoAcids() {
