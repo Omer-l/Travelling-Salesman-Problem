@@ -8,13 +8,13 @@ public class AllTests {
 
 	@Test
 	public void testBreadthFirstSearch() {
-		Application app = new Application();
+		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm();
 		app.breadthFirstSearch(0);
 	}
 	
 	@Test
 	public void testaddPathsFromPoint() {
-		Application app = new Application();
+		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm();
 		MyQueue paths = new MyQueue();
 		
 		int[] initialPath = {0, 3};
@@ -26,7 +26,7 @@ public class AllTests {
 	
 	@Test
 	public void testGetVisitedPoints() {
-		Application app = new Application();
+		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm();
 		app.getData();
 		
 		int[] path = {1, 2};
