@@ -3,12 +3,12 @@ package breadthFirstSearch;
 import main.DataPoint; //data of each vertex.
 import main.MyArrays; //printing arrays
 
-public class BreadthFirstSearchAlgorithm {
+public class BreadthFirstSearch {
 	private final DataPoint[] vertices; // to be scanned
 	private double minimumDistance = Double.MAX_VALUE;
 	private int[] minimumPath = new int[1]; // temporarily create an instance of this array.
 
-	public BreadthFirstSearchAlgorithm(DataPoint[] vertices) {
+	public BreadthFirstSearch(DataPoint[] vertices) {
 		this.vertices = vertices;
 	}
 
@@ -20,8 +20,8 @@ public class BreadthFirstSearchAlgorithm {
 	public boolean[] getVisitedPoints(int[] currentPath) {
 		boolean[] visitedPoints = new boolean[vertices.length];
 		
-		for(int i = 0; i < currentPath.length; i++)
-			visitedPoints[currentPath[i]] = true;
+		for(int pointIndex : currentPath)
+			visitedPoints[pointIndex] = true;
 		
 		return visitedPoints;
 	}
@@ -61,7 +61,7 @@ public class BreadthFirstSearchAlgorithm {
 	 * This is the function that runs the breadth first search algorithm
 	 * @param startingIndex		index to start algorithm from.
 	 */
-	public void runBreadthFirstSearch(int startingIndex) {
+	public void run(int startingIndex) {
 		MyQueue paths = new MyQueue();
 
 		int[] initialPath = {startingIndex};
@@ -126,18 +126,6 @@ public class BreadthFirstSearchAlgorithm {
 		}
 
 		return totalDistance;
-	}
-
-	public DataPoint[] getVertices() {
-		return vertices;
-	}
-
-	public double getMinimumDistance() {
-		return minimumDistance;
-	}
-
-	public int[] getMinimumPath() {
-		return minimumPath;
 	}
 
 	@Override

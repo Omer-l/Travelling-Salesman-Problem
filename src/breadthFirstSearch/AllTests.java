@@ -11,15 +11,15 @@ public class AllTests {
 	public void testBreadthFirstSearch() {
 		MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir") + "/Resources/trainProblem2");
 		DataPoint[] dataPoints = fileReader.getData();
-		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm(dataPoints);
-		app.runBreadthFirstSearch(0);
+		BreadthFirstSearch app = new BreadthFirstSearch(dataPoints);
+		app.run(0);
 	}
 	
 	@Test
 	public void testaddPathsFromPoint() {
 		MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir") + "/Resources/trainProblem2");
 		DataPoint[] dataPoints = fileReader.getData();
-		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm(dataPoints);
+		BreadthFirstSearch app = new BreadthFirstSearch(dataPoints);
 		MyQueue paths = new MyQueue();
 		
 		int[] initialPath = {0, 3};
@@ -33,7 +33,7 @@ public class AllTests {
 	public void testGetVisitedPoints() {
 		MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir") + "/Resources/trainProblem1");
 		DataPoint[] dataPoints = fileReader.getData();
-		BreadthFirstSearchAlgorithm app = new BreadthFirstSearchAlgorithm(dataPoints);
+		BreadthFirstSearch app = new BreadthFirstSearch(dataPoints);
 		
 		int[] path = {1, 2};
 		

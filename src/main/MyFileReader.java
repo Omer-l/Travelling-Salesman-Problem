@@ -29,10 +29,10 @@ public class MyFileReader {
 	        try {
 	            Scanner fileInput = new Scanner(DATA_FILE); // Scanner for reading the data DATA_FILE.
 	            while (fileInput.hasNext()) {
-					String regex = "\\s+"; // split all space occurences in the line.
-	                String[] splittedLine = fileInput.nextLine().split(regex);
-	                int dataX = Integer.parseInt(splittedLine[1].trim()); // adds point x
-	                int dataY = Integer.parseInt(splittedLine[2].trim()); // add point y
+					String regex = "\\s+"; // split all space occurrences in the line.
+	                String[] splitLine = fileInput.nextLine().split(regex);
+	                int dataX = Integer.parseInt(splitLine[2].trim()); // adds point x
+	                int dataY = Integer.parseInt(splitLine[3].trim()); // add point y
 	                dataPoints[pointNumber] = new DataPoint(dataX, dataY); // creates an instance of the class DataPoint with dataX and dataY.
 	                pointNumber++;
 	            }

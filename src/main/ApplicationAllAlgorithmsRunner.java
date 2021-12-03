@@ -1,6 +1,7 @@
 package main;
 
-import breadthFirstSearch.BreadthFirstSearchAlgorithm;
+import breadthFirstSearch.BreadthFirstSearch; //breadth first search approach
+import permutation.Permutation; //permutation approach
 
 public class ApplicationAllAlgorithmsRunner {
     //static constants
@@ -12,16 +13,23 @@ public class ApplicationAllAlgorithmsRunner {
 
     public static void main(String[] args) {
         breadthFirstSearch();
+        permutationMethod();
     }
 
     //gets the results for breadth first search and outputs it.
     private static void breadthFirstSearch() {
-        BreadthFirstSearchAlgorithm breadthFirstSearchAlgorithm = new BreadthFirstSearchAlgorithm(CITIES);
+        BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch(CITIES);
         int startingIndex = 0;
-        breadthFirstSearchAlgorithm.runBreadthFirstSearch(startingIndex);
-
+        breadthFirstSearch.run(startingIndex);
         //output the results.
-        System.out.println(breadthFirstSearchAlgorithm);
+        System.out.println(breadthFirstSearch);
+    }
+
+    //gets the results for permutation method and outputs it.
+    private static void permutationMethod() {
+        Permutation permutation = new Permutation(CITIES);
+        permutation.run();
+        System.out.println(permutation);
     }
 
 }
