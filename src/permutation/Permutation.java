@@ -15,7 +15,7 @@ public class Permutation {
     }
 
 	//runs the algorithm, getting all possible permutations, iterating through them and choosing the shortest path.
-    public void run() {
+    public void runPermutation() {
         final int numberOfPoints =  dataPoints.length;
         final int numberOfPermutations = getNumberOfPermutations(numberOfPoints);
 

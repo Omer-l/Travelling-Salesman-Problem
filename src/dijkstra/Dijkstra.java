@@ -1,14 +1,17 @@
-package breadthFirstSearch;
+package dijkstra;
 
-import main.DataPoint; //data of each vertex.
-import main.MyArrays; //printing arrays
+import main.MyArrays;
+import main.DataPoint;
+/**
+ *
+ */
 
-public class BreadthFirstSearch {
-	private final DataPoint[] vertices; // to be scanned
+public class Dijkstra {
+	private final DataPoint[] vertices; // data points of each city
 	private double minimumDistance = Double.MAX_VALUE;
-	private int[] minimumPath = new int[1]; // temporarily create an instance of this array.
+	private int[] minimumPath = new int[1];
 
-	public BreadthFirstSearch(DataPoint[] vertices) {
+	public Dijkstra(DataPoint[] vertices) {
 		this.vertices = vertices;
 	}
 
@@ -19,13 +22,13 @@ public class BreadthFirstSearch {
 	 */
 	public boolean[] getVisitedPoints(int[] currentPath) {
 		boolean[] visitedPoints = new boolean[vertices.length];
-		
+
 		for(int pointIndex : currentPath)
 			visitedPoints[pointIndex] = true;
-		
+
 		return visitedPoints;
 	}
-	
+
 	/**
 	 * This function will extend the currentPath by 1 and add a new vertex's index
 	 * @param currentPath	current path
@@ -36,7 +39,7 @@ public class BreadthFirstSearch {
 		int[] pathWithAddedIndex = new int[currentPath.length + 1];
 		System.arraycopy(currentPath, 0, pathWithAddedIndex, 0, currentPath.length);
 		pathWithAddedIndex[pathWithAddedIndex.length - 1] = pointIndex;
-		
+
 		return pathWithAddedIndex;
 	}
 
@@ -45,7 +48,7 @@ public class BreadthFirstSearch {
 	 * @param paths			queue of paths currently in the queue
 	 * @param currentPath	path to add a new point to
 	 */
-	public void addPathsFromPoint(MyQueue paths, int[] currentPath) {
+	public void addPathsFromPoint(MyPriorityQueue paths, int[] currentPath) {
 		boolean[] visited = getVisitedPoints(currentPath);
 
 		for(int i = 0; i < visited.length; i++) {
@@ -57,34 +60,33 @@ public class BreadthFirstSearch {
 		}
 	}
 
-	/**
-	 * This is the function that runs the breadth first search algorithm
-	 * @param startingIndex		index to start algorithm from.
-	 */
-	public void runBreadthFirstSearch(int startingIndex) {
-		MyQueue paths = new MyQueue();
+	public void runDijkstras(int startingPath) {
+		MyPriorityQueue paths = new MyPriorityQueue();
 
-		int[] initialPath = {startingIndex};
+		int[] initialPath = {startingPath};
 		paths.enqueue(initialPath);
-		int[] nextPath;
+		int[] nextPath = paths.dequeue();
 		while(!paths.empty()) {
 			nextPath = paths.dequeue();
-			if(nextPath.length == vertices.length) {
-				System.out.println("HERE ARE THE PATHS: \n" + MyArrays.toString(nextPath));
+			if(nextPath != null) {
+				if (nextPath.length == vertices.length) {
+					System.out.println("HERE ARE THE PATHS: \n" + MyArrays.toString(nextPath));
 
-				while(!paths.empty()) {
-					int[] currentCompletePath = paths.dequeue();
-					double currentCompletePathDistance = calculatePathDistance(currentCompletePath);
+					while (!paths.empty()) {
+						int[] currentCompletePath = paths.dequeue();
+						double currentCompletePathDistance = calculatePathDistance(currentCompletePath, vertices);
 
-					if(currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
-						minimumDistance = currentCompletePathDistance;
-						minimumPath = currentCompletePath;
-						System.out.println("NEW MIN: " + minimumDistance);
+						if (currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
+							minimumDistance = currentCompletePathDistance;
+							minimumPath = currentCompletePath;
+							System.out.println("NEW MIN: " + minimumDistance);
+						}
 					}
+					break;
 				}
-				break;
+
+				addPathsFromPoint(paths, nextPath);
 			}
-			addPathsFromPoint(paths, nextPath);
 		}
 	}
 
@@ -97,32 +99,33 @@ public class BreadthFirstSearch {
 	private boolean finishedSearching(int[] nextPath) {
 		return nextPath.length >= vertices.length;
 	}
-	
+
 	/**
 	 * This function calculates the distance between vertices
-	 * 
-	 * @param path  indexes of the path
-	 * @return distance between given indexes.
-	 * 
+	 * @param path  	indexes of the path
+	 * @param vertices  actual points that 'path' will refer to
+	 * @return 			distance between given indexes.
+	 *
 	 */
-	public double calculatePathDistance(int[] path) {
-
+	public static double calculatePathDistance(int[] path, DataPoint[] vertices) {
 		double totalDistance = 0;
-		boolean cycle = path.length == vertices.length; //is it a cycle? then connect end DataPoint with starting DataPoint.
+		if(vertices != null) {
+			boolean cycle = path.length == vertices.length; //is it a cycle? then connect end DataPoint with starting DataPoint.
 
-		for (int j = 1; j < path.length; j++) {
-			DataPoint point1 = vertices[path[j - 1]];
-			DataPoint point2 = vertices[path[j]];
+			for (int j = 1; j < path.length; j++) {
+				DataPoint point1 = vertices[path[j - 1]];
+				DataPoint point2 = vertices[path[j]];
 
-			totalDistance += point1.getDistanceTo(point2);
-		}
+				totalDistance += point1.getDistanceTo(point2);
+			}
 
-		if (cycle) { // ensures a cycle is made in the graph
-			// Get endVertex to startVertex to create a cycle
-			DataPoint endDataPoint = vertices[path[path.length - 1]];
-			DataPoint startDataPoint = vertices[path[0]];
+			if (cycle) { // ensures a cycle is made in the graph
+				// Get endVertex to startVertex to create a cycle
+				DataPoint endVertex = vertices[path[path.length - 1]];
+				DataPoint startVertex = vertices[path[0]];
 
-			totalDistance += endDataPoint.getDistanceTo(startDataPoint);
+				totalDistance += endVertex.getDistanceTo(startVertex);
+			}
 		}
 
 		return totalDistance;
@@ -130,6 +133,6 @@ public class BreadthFirstSearch {
 
 	@Override
 	public String toString() {
-		return "Breadth First Search - Best Path: " + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - distance: " + minimumDistance;
+		return "Dijkstra - Best Path: " + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - distance: " + minimumDistance;
 	}
 }

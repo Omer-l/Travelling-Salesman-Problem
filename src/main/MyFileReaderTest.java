@@ -3,11 +3,8 @@ package main;
 import org.hamcrest.core.IsEqual;
 import org.hamcrest.core.IsNot;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class MyFileReaderTest {
 
@@ -17,7 +14,7 @@ public class MyFileReaderTest {
             "test4_2019.txt", "test1_2020.txt", "test2_2020.txt", "test3_2020.txt", "test4_2020.txt"})
     public void testIndexIsNotAssignedAsX(String filename) {
         final String filePath = System.getProperty("user.dir") + "/Resources/" + filename; //absolute path to the file
-        System.out.println(filePath);
+        System.out.println(filePath );
         MyFileReader myFileReader = new MyFileReader(filePath);
 
         DataPoint[] dataPoints = myFileReader.getData();
@@ -31,7 +28,6 @@ public class MyFileReaderTest {
             xValues[pointIterator] = dataPoints[pointIterator].getX();
             expecteds[pointIterator] = pointIterator+1;
         }
-
         Assert.assertThat(xValues, IsNot.not(IsEqual.equalTo(expecteds)));
     }
 }

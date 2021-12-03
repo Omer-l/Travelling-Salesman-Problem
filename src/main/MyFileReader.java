@@ -5,13 +5,13 @@ import java.io.FileNotFoundException; //error in the case of a file is not found
 import java.util.Scanner; //used to take in the data from the data file
 
 public class MyFileReader {
-		public final File DATA_FILE;
+		public final File dataFile; //file holding coordinates.
 	    
 	    //error message constant(s)
 	    private final String ERR_MSG_FILE_NOT_FOUND = "\nFILE NOT FOUND";
 		
 	    public MyFileReader(String absoluteFilePath) {
-	        this.DATA_FILE = new File(absoluteFilePath); // path for data //create constants for user.dir etc..
+	        this.dataFile = new File(absoluteFilePath); // path for data //create constants for user.dir etc..
 	    }
 		
 		/**
@@ -27,7 +27,7 @@ public class MyFileReader {
 	        int pointNumber = 0; // current index in array of Vertices
 
 	        try {
-	            Scanner fileInput = new Scanner(DATA_FILE); // Scanner for reading the data DATA_FILE.
+	            Scanner fileInput = new Scanner(dataFile); // Scanner for reading the data DATA_FILE.
 	            while (fileInput.hasNext()) {
 					String regex = "\\s+"; // split all space occurrences in the line.
 	                String[] splitLine = fileInput.nextLine().split(regex);
@@ -61,7 +61,7 @@ public class MyFileReader {
 
 			for(String partOfLine : splitLine) {
 				partOfLine = partOfLine.trim();
-				if(partOfLine.length() > 0) {
+				if(partOfLine.length() > 0) { //then it is a number
 					if(passedIndex) {
 						xAndY[xyIterator] = Double.parseDouble(partOfLine);
 						xyIterator++;
@@ -74,15 +74,14 @@ public class MyFileReader {
 
 
 	/**
-	     * counts the number of lines (data points) in the DATA_FILE
-	     *
+	     * Counts the number of lines (data points) in the DATA_FILE
 	     * @return the number of lines in the DATA_FILE, which is the number of data points.
 	     */
 	    public int getNumberOfTrainingSets() {
 	        int trainingSetsCounter = 0; // counter
 
 	        try {
-	            Scanner fileInput = new Scanner(DATA_FILE);
+	            Scanner fileInput = new Scanner(dataFile);
 
 	            while (fileInput.hasNext()) {
 	                fileInput.nextLine(); //does not need to initialise a variable as it is just counting.

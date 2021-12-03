@@ -1,11 +1,22 @@
 package dijkstra;
 
+import main.DataPoint;//used for indexes in the a path.
+import main.MyArrays; //printing arrays
+
 public class MyPriorityQueue {
 
 	private int size = 1;
 	private int backOfQueueIndex = 0;
 	private int frontOfQueueIndex = 0;
 	private int[][] arrayOfPaths = new int[size][];
+	private DataPoint[] vertices; //vertices to refer to with the new paths.
+
+	public MyPriorityQueue(DataPoint[] vertices) {
+		this.vertices = vertices;
+	}
+
+	public MyPriorityQueue() {
+	}
 
 	public void resize() {
 		size *= 2; // doubles size, allowing for more data.
@@ -34,7 +45,7 @@ public class MyPriorityQueue {
 		if (backOfQueueIndex == size)
 			resize();
 
-		double newPathDistance = Application.calculatePathDistance(newPath);
+		double newPathDistance = Dijkstra.calculatePathDistance(newPath, vertices);
 
 		for(int i = 0; i < arrayOfPaths.length; i++) {
 			if(arrayOfPaths[i] == null) {
@@ -42,7 +53,7 @@ public class MyPriorityQueue {
 				break;
 			}
 			int[] currentPath = arrayOfPaths[i];
-			double currentPathDistance = Application.calculatePathDistance(currentPath);
+			double currentPathDistance = Dijkstra.calculatePathDistance(currentPath, vertices);
 
 			if(newPathDistance < currentPathDistance) {
 				int[][] newArray = new int[arrayOfPaths.length + 1][];
@@ -72,6 +83,6 @@ public class MyPriorityQueue {
 
 	@Override
 	public String toString() {
-		return Application.arrayToString(arrayOfPaths);
+		return MyArrays.toString(arrayOfPaths);
 	}
 }

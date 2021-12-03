@@ -1,11 +1,12 @@
 package main;
 
 import breadthFirstSearch.BreadthFirstSearch; //breadth first search approach
+import dijkstra.Dijkstra;
 import permutation.Permutation; //permutation approach
 
 public class ApplicationAllAlgorithmsRunner {
     //static constants
-    private final static String ABSOLUTE_FILE_PATH = System.getProperty("user.dir") + "/Resources/trainProblem1"; //absolute path to the file
+    private final static String ABSOLUTE_FILE_PATH = System.getProperty("user.dir") + "/Resources/trainProblem1.txt"; //absolute path to the file
     private final static long MAXIMUM_TIME = 59000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
     private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer
     private static final MyFileReader MY_FILE_READER = new MyFileReader(ABSOLUTE_FILE_PATH); //reads in the data.
@@ -13,23 +14,32 @@ public class ApplicationAllAlgorithmsRunner {
 
     public static void main(String[] args) {
         breadthFirstSearch();
-        permutationMethod();
+        permutation();
+        dijkstras();
     }
 
     //gets the results for breadth first search and outputs it.
     private static void breadthFirstSearch() {
         BreadthFirstSearch breadthFirstSearch = new BreadthFirstSearch(CITIES);
         int startingIndex = 0;
-        breadthFirstSearch.run(startingIndex);
+        breadthFirstSearch.runBreadthFirstSearch(startingIndex);
         //output the results.
         System.out.println(breadthFirstSearch);
     }
 
     //gets the results for permutation method and outputs it.
-    private static void permutationMethod() {
+    private static void permutation() {
         Permutation permutation = new Permutation(CITIES);
-        permutation.run();
+        permutation.runPermutation();
         System.out.println(permutation);
     }
 
+    //gets results from dijkstras and outputs it.
+    private static void dijkstras() {
+        Dijkstra dijkstra = new Dijkstra(CITIES);
+        int startingPath = 0;
+        dijkstra.runDijkstras(startingPath);
+
+        System.out.println(dijkstra);
+    }
 }

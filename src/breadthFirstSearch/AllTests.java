@@ -12,7 +12,7 @@ public class AllTests {
 		MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir") + "/Resources/trainProblem2");
 		DataPoint[] dataPoints = fileReader.getData();
 		BreadthFirstSearch app = new BreadthFirstSearch(dataPoints);
-		app.run(0);
+		app.runBreadthFirstSearch(0);
 	}
 	
 	@Test
