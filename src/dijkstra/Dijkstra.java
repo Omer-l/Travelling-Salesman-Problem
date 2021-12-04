@@ -35,7 +35,7 @@ public class Dijkstra {
 	 * @param pointIndex	vertex's index to add to path
 	 * @return				a new path with the new index added
 	 */
-	private int[] addIndextoCurrentPath(int[] currentPath, int pointIndex) {
+	private int[] addIndexToCurrentPath(int[] currentPath, int pointIndex) {
 		int[] pathWithAddedIndex = new int[currentPath.length + 1];
 		System.arraycopy(currentPath, 0, pathWithAddedIndex, 0, currentPath.length);
 		pathWithAddedIndex[pathWithAddedIndex.length - 1] = pointIndex;
@@ -51,9 +51,9 @@ public class Dijkstra {
 	public void addPathsFromPoint(MyPriorityQueue paths, int[] currentPath) {
 		boolean[] visited = getVisitedPoints(currentPath);
 
-		for(int i = 0; i < visited.length; i++) {
-			if(!visited[i]) { //then add unvisited point's index reference to currentPath
-				int[] newPath = addIndextoCurrentPath(currentPath, i);
+		for(int vertexIndexIterator = 0; vertexIndexIterator < visited.length; vertexIndexIterator++) {
+			if(!visited[vertexIndexIterator]) { //then add unvisited point's index reference to currentPath
+				int[] newPath = addIndexToCurrentPath(currentPath, vertexIndexIterator);
 				paths.enqueue(newPath);
 				System.out.println(MyArrays.toString(newPath));
 			}
@@ -112,9 +112,9 @@ public class Dijkstra {
 		if(vertices != null) {
 			boolean cycle = path.length == vertices.length; //is it a cycle? then connect end DataPoint with starting DataPoint.
 
-			for (int j = 1; j < path.length; j++) {
-				DataPoint point1 = vertices[path[j - 1]];
-				DataPoint point2 = vertices[path[j]];
+			for (int vertexIndexIterator = 1; vertexIndexIterator < path.length; vertexIndexIterator++) {
+				DataPoint point1 = vertices[path[vertexIndexIterator - 1]];
+				DataPoint point2 = vertices[path[vertexIndexIterator]];
 
 				totalDistance += point1.getDistanceTo(point2);
 			}

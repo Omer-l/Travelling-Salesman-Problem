@@ -48,11 +48,10 @@ public class BreadthFirstSearch {
 	public void addPathsFromPoint(MyQueue paths, int[] currentPath) {
 		boolean[] visited = getVisitedPoints(currentPath);
 
-		for(int i = 0; i < visited.length; i++) {
-			if(!visited[i]) { //then add unvisited point's index reference to currentPath
-				int[] newPath = addIndextoCurrentPath(currentPath, i);
+		for(int vertexIndexIterator = 0; vertexIndexIterator < visited.length; vertexIndexIterator++) {
+			if(!visited[vertexIndexIterator]) { //then add unvisited point's index reference to currentPath
+				int[] newPath = addIndextoCurrentPath(currentPath, vertexIndexIterator);
 				paths.enqueue(newPath);
-				System.out.println(MyArrays.toString(newPath));
 			}
 		}
 	}
@@ -70,7 +69,6 @@ public class BreadthFirstSearch {
 		while(!paths.empty()) {
 			nextPath = paths.dequeue();
 			if(nextPath.length == vertices.length) {
-				System.out.println("HERE ARE THE PATHS: \n" + MyArrays.toString(nextPath));
 
 				while(!paths.empty()) {
 					int[] currentCompletePath = paths.dequeue();
@@ -79,7 +77,6 @@ public class BreadthFirstSearch {
 					if(currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
 						minimumDistance = currentCompletePathDistance;
 						minimumPath = currentCompletePath;
-						System.out.println("NEW MIN: " + minimumDistance);
 					}
 				}
 				break;
@@ -110,9 +107,9 @@ public class BreadthFirstSearch {
 		double totalDistance = 0;
 		boolean cycle = path.length == vertices.length; //is it a cycle? then connect end DataPoint with starting DataPoint.
 
-		for (int j = 1; j < path.length; j++) {
-			DataPoint point1 = vertices[path[j - 1]];
-			DataPoint point2 = vertices[path[j]];
+		for (int vertexIndexIterator = 1; vertexIndexIterator < path.length; vertexIndexIterator++) {
+			DataPoint point1 = vertices[path[vertexIndexIterator - 1]];
+			DataPoint point2 = vertices[path[vertexIndexIterator]];
 
 			totalDistance += point1.getDistanceTo(point2);
 		}

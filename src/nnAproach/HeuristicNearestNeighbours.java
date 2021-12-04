@@ -15,13 +15,13 @@ public class HeuristicNearestNeighbours {
 
 	//Runs the algorithm and times it.
 	public void runHeuristicNearestNeighbours() {
-		minimumDistance = Double.MAX_VALUE;
 		minimumPath = new int[neighbours.length];
-		for(int i = 0; i <  neighbours.length; i++) {
-			int[] path = getPath(neighbours, i);
-			System.out.println(MyArrays.toString(path));
+
+		for(int startingIndexIterator = 0; startingIndexIterator <  neighbours.length; startingIndexIterator++) {
+
+			int[] path = getPath(neighbours, startingIndexIterator);
+
 			double pathDistance = calculatePathDistance(path, neighbours);
-			System.out.println(pathDistance);
 			
 			if(pathDistance < minimumDistance) {
 				minimumDistance = pathDistance;
@@ -31,10 +31,10 @@ public class HeuristicNearestNeighbours {
 	}
 
 	/**
-	 * 
-	 * @param neighbours			neighbours to be visiting
-	 * @param currentIndex		starting index
-	 * @return					the path using the Nearest Neighbour algorithm.
+	 * Gets the path by getting the closest neighbour every iteration
+	 * @param neighbours		are referenced by index (i.e., currentIndex)
+	 * @param currentIndex		starting city's index
+	 * @return					the path after closest neighbour is added.
 	 */
 	public static int[] getPath(DataPoint[] neighbours, int currentIndex) {
 		int[] path = new int[neighbours.length];
@@ -51,7 +51,7 @@ public class HeuristicNearestNeighbours {
 			
 			//get nearest neighbour of currentIndex
 			for(int neighbourIterator = 0; neighbourIterator < neighbours.length; neighbourIterator++) {
-				
+
 				//has this DataPoint been visited?
 				if(visited[neighbourIterator])
 					continue; //don't even look at it.
@@ -63,14 +63,12 @@ public class HeuristicNearestNeighbours {
 					currentMinimumDistanceIndex = neighbourIterator;
 				}	
 			}
-			
 			currentIndex = currentMinimumDistanceIndex; //set's the closest DataPoint as the next index to visit
 		}
-
 		return path;
-
 	}
 
+	//once all points are visited, this function will return true.
 	private static boolean allPointsVisited(boolean[] visited) {
 		for (boolean pointVisited : visited)
 			if (!pointVisited)
@@ -79,6 +77,7 @@ public class HeuristicNearestNeighbours {
 		return true;
 	}
 
+	//calculates the path's distance as a cycle.
 	public static double calculatePathDistance(int[] path, DataPoint[] points) {
 		
 		double totalDistance = 0;
