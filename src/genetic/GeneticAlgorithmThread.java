@@ -34,7 +34,7 @@ public class GeneticAlgorithmThread implements Runnable{
 		
 		int[][] populationOfGenes = geneticAlgorithm.initialisePopulationOfGenes();
 
-		for (int generationIterator = 0; generationIterator < maximumGenerations && exit ; generationIterator++) {
+		for (int generationIterator = 0; generationIterator < maximumGenerations && !exit ; generationIterator++) {
 
 			int indexOfParent = geneticAlgorithm.getBestGeneIndex(populationOfGenes);
 			

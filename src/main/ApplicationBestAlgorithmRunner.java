@@ -59,13 +59,13 @@ public class ApplicationBestAlgorithmRunner {
         GeneticAlgorithmThread[] geneticAlgorithmThreads = new GeneticAlgorithmThread[numberOfThreads];
 
         // run all threads
-        for (int threadIterator = 0; threadIterator < geneticAlgorithmThreads.length && !(passedMaximumTime()); threadIterator++) {
+        for (int threadIterator = 0; threadIterator < geneticAlgorithmThreads.length && !passedMaximumTime(); threadIterator++) {
             //new instance of algorithm to run in the thread
             GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(sizeOfGeneration, probabilityOfMutation, aminoAcids);
             //new instance of thread that runs genetic algorithm and all of its generations.
             geneticAlgorithmThreads[threadIterator] = new GeneticAlgorithmThread(maximumGenerations, geneticAlgorithm);
             //run the instance of the thread containing the algorithm.
-            geneticAlgorithmThreads[threadIterator].run(); // TEST PROBLEMS 2020 WILL NOT WORK BECAUSE OF GETDATA() FUNCTION
+            geneticAlgorithmThreads[threadIterator].run();
 
             //condition to see if elapsed time is over 59 seconds.
             if (passedMaximumTime()) { // end this genetic algorithm search.
