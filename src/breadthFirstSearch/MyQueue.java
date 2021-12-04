@@ -1,5 +1,8 @@
 package breadthFirstSearch;
 
+/**
+ * This class is a queue with functions for adding, removing paths to the queue.
+ */
 public class MyQueue {
 
 	private int size = 1;

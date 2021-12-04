@@ -1,5 +1,9 @@
 package main;
 
+/**
+ * This class represents a city in the travelling salesman problem. A data point/city holds an x and a y axis followed
+ * by methods such as getting the distance to another city, and overriding the toString() method to print the coordinate
+ */
 public class DataPoint {
 
     private double x;

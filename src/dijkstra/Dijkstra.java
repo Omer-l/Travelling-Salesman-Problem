@@ -1,15 +1,19 @@
 package dijkstra;
 
-import main.MyArrays;
-import main.DataPoint;
-/**
- *
- */
+import main.MyArrays; //printing arrays
+import main.DataPoint; //holds the coordinates to cities and methods to calculate distances.
 
+/**
+ * This class contains all the necessary functions for a Dijkstra's algorithm to calculate the shortest path to all the
+ * cities. This algorithm is an adaptation of BreadthFirstSearch, only the data structure used is priority queue here.
+ * Starting from the first city, all the other cities will be visited in a breadth first search order
+ * Utilising a priority queue, the path with the shortest distance will always in front of the queue.
+ * Shortest paths will be moved/added to the front of the queue until the path to all the cities is found
+ */
 public class Dijkstra {
 	private final DataPoint[] vertices; // data points of each city
 	private double minimumDistance = Double.MAX_VALUE;
-	private int[] minimumPath = new int[1];
+	private int[] minimumPath;
 
 	public Dijkstra(DataPoint[] vertices) {
 		this.vertices = vertices;

@@ -3,6 +3,11 @@ package nnAproach;
 import main.DataPoint; //a DataPoint is a city.
 import main.MyArrays;
 
+/**
+ * Based on the nearest neighbour algorithm, this class offers a modified version of the travelling salesman problem.
+ * The modification is to change the starting city for the nearest neighbour algorithm and choose which starting city
+ * produces the shortest path.
+ */
 public class HeuristicNearestNeighbours {
 	private final DataPoint[] neighbours;
 	private double minimumDistance = Double.MAX_VALUE;

@@ -4,7 +4,8 @@ import main.DataPoint;//used for indexes in the a path.
 import main.MyArrays; //printing arrays
 
 /**
- * This class is a priority queue adding, removing paths to the queue.
+ * This class is a priority queue with functions for adding, removing paths to the queue.
+ * Paths with a shorter distance have a higher priority.
  */
 public class MyPriorityQueue {
 

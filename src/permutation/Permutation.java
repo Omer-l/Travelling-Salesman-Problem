@@ -1,14 +1,18 @@
 package permutation;
 
 import main.DataPoint; //for the city coordinates.
-import main.MyArrays;
+import main.MyArrays; //printing arrays.
 
+/**
+ * The permutation algorithm lives in this class. It finds all the possible combinations of paths to traverse all the
+ * cities.
+ */
 public class Permutation {
-	private int[][] permutations;
-	private static int PERMUTATION_ITERATOR = 0;
-    private final DataPoint[] dataPoints;
-	private double shortestDistance = Double.MAX_VALUE;
-	private int[] shortestDistancePath;
+	private int[][] permutations; //current permutations (paths to all the cities).
+	private int permutationIterator = 0; // used to count the number of permutations generated so far.
+    private final DataPoint[] dataPoints; //cities with their x and y coordinates
+	private double shortestDistance = Double.MAX_VALUE; //current shortest distance
+	private int[] shortestDistancePath; //current shortest path
 
     public Permutation(DataPoint[] dataPoints) {
         this.dataPoints = dataPoints;
@@ -62,19 +66,26 @@ public class Permutation {
         	}
         }
 	}
-	
-    private void permute(int[] pointsIndexes, int l, int r) {
-        if (l == r) {
+
+	/**
+	 * Initialised the permutations array. given a starting path, this function will keep permuting recursively until
+	 * all possible paths/cycles to all the cities are found.
+	 * @param pointsIndexes			an array containing the indexes to the cities in the dataPoints array.
+	 * @param currentLengthOfPath	is the length the path being created is currently at in the recursion
+	 * @param lengthForCycle		the length for a cycle to be made to all the cities.
+	 */
+    private void permute(int[] pointsIndexes, int currentLengthOfPath, int lengthForCycle) {
+        if (currentLengthOfPath == lengthForCycle) {
         	int[] tempArray = pointsIndexes.clone(); //Cloned to avoid pointer and reference bugs.
-            permutations[PERMUTATION_ITERATOR] = tempArray;
-            PERMUTATION_ITERATOR++;
+            permutations[permutationIterator] = tempArray;
+            permutationIterator++;
         }
             else {
-            for (int i = l; i <= r; i++)
+            for (int i = currentLengthOfPath; i <= lengthForCycle; i++)
             {
-                pointsIndexes = swap(pointsIndexes,l,i);
-                permute(pointsIndexes, l+1, r);
-                pointsIndexes = swap(pointsIndexes,l,i);
+                pointsIndexes = swap(pointsIndexes,currentLengthOfPath,i);
+                permute(pointsIndexes, currentLengthOfPath+1, lengthForCycle);
+                pointsIndexes = swap(pointsIndexes,currentLengthOfPath,i);
             }
         }
     }

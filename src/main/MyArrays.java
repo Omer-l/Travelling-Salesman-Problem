@@ -1,5 +1,8 @@
 package main;
 
+/**
+ * This class contains toString methods to print arrays used in this project.
+ */
 public class MyArrays {
 
     /**

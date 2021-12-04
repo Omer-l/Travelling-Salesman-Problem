@@ -3,6 +3,12 @@ package breadthFirstSearch;
 import main.DataPoint; //data of each vertex.
 import main.MyArrays; //printing arrays
 
+/**
+ * This class contains all the necessary functions for a breadth first search algorithm to calculate all the possible
+ * paths that can be taken for the travelling salesman problem, and then choose the shortest path to all the cities.
+ * Starting from the first city, all the other cities will be visited in a breadth first search order
+ * After finding all the possible paths to all the cities, the path with the shortest distance will be returned.
+ */
 public class BreadthFirstSearch {
 	private final DataPoint[] vertices; // to be scanned
 	private double minimumDistance = Double.MAX_VALUE;

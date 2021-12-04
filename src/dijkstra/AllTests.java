@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
+//Tests Dijkstra's and the priority queue.
 public class AllTests {
 	MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir") + "/Resources/trainProblem1.txt");
 	Dijkstra dijkstra = new Dijkstra(fileReader.getData());
