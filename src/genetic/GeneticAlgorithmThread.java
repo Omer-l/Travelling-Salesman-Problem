@@ -1,6 +1,6 @@
 package genetic;
 
-import main.MyArrays;
+import main.MyArrays; //printing arrays
 
 /**
  *	This is the thread class. An instance of this class runs the genetic algorithm.
@@ -10,7 +10,6 @@ import main.MyArrays;
  *	As the genetic algorithm is run, the best gene from the generation of genes
  *	is chosen, and stored as 'bestPath' and 'bestPathDistance' in this thread.
  */
-
 public class GeneticAlgorithmThread implements Runnable{
 
 	private double bestPathDistance = Double.MAX_VALUE; //keeps track of the best distance, kept MAX_VALUE as a start
