@@ -32,7 +32,7 @@ public class ApplicationBestAlgorithmRunner {
     private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test3_2019.txt"; //absolute path to the file
 
     //static constants
-    private final static long MAXIMUM_TIME = 9000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
+    private final static long MAXIMUM_TIME = 59000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
     private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer
 
     /**

@@ -1,10 +1,11 @@
 package dijkstra;
+
 /**
  * This class contains a path to cities and a next and previous node, for which, the next and previous nodes also
  * contain paths and next and previous nodes.
- * This will make the queue mutable as nodes will be added and removed at run time.
+ * This will make the queue mutable as nodes will be added and removed at runtime.
  */
-public class QueueNode {
+public class QueueNode implements Cloneable{
     private final int[] path;
     private QueueNode previousNode;
     private  QueueNode nextNode;
@@ -37,5 +38,18 @@ public class QueueNode {
 
     public int[] getPath() {
         return path;
+    }
+
+    //clones this node.
+    public Object clone()  {
+        Object clonedNode = null;
+
+        try {
+            clonedNode = super.clone();
+        } catch(CloneNotSupportedException cloneNotSupportedException) {
+            System.out.println("Couldn't clone node.");
+            cloneNotSupportedException.printStackTrace();
+        }
+        return clonedNode;
     }
 }

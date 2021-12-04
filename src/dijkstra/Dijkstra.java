@@ -59,7 +59,7 @@ public class Dijkstra {
 			if(!visited[vertexIndexIterator]) { //then add unvisited point's index reference to currentPath
 				int[] newPath = addIndexToCurrentPath(currentPath, vertexIndexIterator);
 				paths.enqueue(newPath);
-				System.out.println(MyArrays.toString(newPath));
+//				System.out.println(MyArrays.toString(newPath)); DEL
 			}
 		}
 	}
@@ -69,21 +69,21 @@ public class Dijkstra {
 
 		int[] initialPath = {startingPath};
 		paths.enqueue(initialPath);
-		int[] nextPath = paths.dequeue();
-		while(paths.notEmpty()) {
-			nextPath = paths.dequeue();
+
+		while(!paths.empty()) {
+			int[] nextPath = paths.dequeue();
 			if(nextPath != null) {
 				if (nextPath.length == vertices.length) {
-					System.out.println("HERE ARE THE PATHS: \n" + MyArrays.toString(nextPath));
+//					System.out.println("HERE ARE THE PATHS: \n" + MyArrays.toString(nextPath)); DEL
 
-					while (paths.notEmpty()) {
+					while (!paths.empty()) {
 						int[] currentCompletePath = paths.dequeue();
 						double currentCompletePathDistance = calculatePathDistance(currentCompletePath, vertices);
 
 						if (currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
 							minimumDistance = currentCompletePathDistance;
 							minimumPath = currentCompletePath;
-							System.out.println("NEW MIN: " + minimumDistance);
+//							System.out.println("NEW MIN: " + minimumDistance); DEL
 						}
 					}
 					break;
