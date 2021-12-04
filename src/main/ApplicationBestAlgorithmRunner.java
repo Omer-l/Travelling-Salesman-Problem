@@ -28,9 +28,11 @@ import static genetic.GeneticAlgorithmThread.getThreadWithMinimumPathGene; //for
  * out of the 1000 threads will contain the best gene (path to cities).
  */
 public class ApplicationBestAlgorithmRunner {
+    //The file path can change when ApplicationAllAlgorithmsRunner.java runs this class.
+    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test3_2019.txt"; //absolute path to the file
+
     //static constants
-    private final static String ABSOLUTE_FILE_PATH = System.getProperty("user.dir") + "/Resources/test1_2020.txt"; //absolute path to the file
-    private final static long MAXIMUM_TIME = 59000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
+    private final static long MAXIMUM_TIME = 9000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
     private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer
 
     /**
@@ -38,18 +40,21 @@ public class ApplicationBestAlgorithmRunner {
      *  Then, outputs the thread with the best gene (path)
      */
 	public static void main(String[] args) {
+        if(args.length > 0) // In case a different absolute file path is given.
+            absoluteFilePath = args[0];
+
         GeneticAlgorithmThread threadWithBestGene = runGeneticAlgorithm();
 
         //calculate elapsed time
         long elapsedTimeMs = calculateElapsedTime();
         long elapsedTimeSeconds = convertMsToSeconds(elapsedTimeMs);
         //output elapsed time
-        System.out.println("BEST THREAD - " + threadWithBestGene + " - ELAPSED TIME: " + elapsedTimeSeconds + " seconds (or more precisely: " + elapsedTimeMs + " milliseconds).");
+        System.out.println(threadWithBestGene + " - elapsed time: " + elapsedTimeSeconds + " seconds (or more precisely: " + elapsedTimeMs + " milliseconds).");
 	}
 
     //runs the genetic algorithm threads and returns the thread with the best gene.
 	public static GeneticAlgorithmThread runGeneticAlgorithm() {
-        final MyFileReader fileReader = new MyFileReader(ABSOLUTE_FILE_PATH); //reads in the data.
+        final MyFileReader fileReader = new MyFileReader(absoluteFilePath); //reads in the data.
         final DataPoint[] aminoAcids = fileReader.getData(); //city objects, each city has an x and a y coordinate
         final int probabilityOfMutation = 15; //probability than a city will be mutated and swapped places
         final int sizeOfGeneration = 50; //size of each generation

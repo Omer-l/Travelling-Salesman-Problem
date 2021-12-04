@@ -108,6 +108,6 @@ public class Permutation {
 	//outputs results
 	@Override
 	public String toString() {
-		return "Permutation - Best Path: " + MyArrays.toString(shortestDistancePath) + " " + (shortestDistancePath[0]+1) + " - distance: " + shortestDistance;
+		return "Permutation - Best Path:" + MyArrays.toString(shortestDistancePath) + " " + (shortestDistancePath[0]+1) + " - Distance: " + shortestDistance;
 	}
 }

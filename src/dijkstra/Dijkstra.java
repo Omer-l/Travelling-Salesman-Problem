@@ -66,13 +66,13 @@ public class Dijkstra {
 		int[] initialPath = {startingPath};
 		paths.enqueue(initialPath);
 		int[] nextPath = paths.dequeue();
-		while(!paths.empty()) {
+		while(paths.notEmpty()) {
 			nextPath = paths.dequeue();
 			if(nextPath != null) {
 				if (nextPath.length == vertices.length) {
 					System.out.println("HERE ARE THE PATHS: \n" + MyArrays.toString(nextPath));
 
-					while (!paths.empty()) {
+					while (paths.notEmpty()) {
 						int[] currentCompletePath = paths.dequeue();
 						double currentCompletePathDistance = calculatePathDistance(currentCompletePath, vertices);
 
@@ -133,6 +133,6 @@ public class Dijkstra {
 
 	@Override
 	public String toString() {
-		return "Dijkstra - Best Path: " + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - distance: " + minimumDistance;
+		return "Dijkstra - Best Path:" + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - distance: " + minimumDistance;
 	}
 }

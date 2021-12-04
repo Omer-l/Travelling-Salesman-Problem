@@ -1,5 +1,5 @@
 package genetic;
-
+//This file is used to test functions in the GeneticAlgorithm.java class
 import static org.junit.Assert.*;
 
 import java.util.Arrays;

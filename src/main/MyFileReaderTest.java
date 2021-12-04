@@ -6,6 +6,9 @@ import org.junit.Assert;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+/**
+ * This class tests the MyFileReader.java class by seeing if it is reading the data files correctly.
+ */
 public class MyFileReaderTest {
 
     @ParameterizedTest

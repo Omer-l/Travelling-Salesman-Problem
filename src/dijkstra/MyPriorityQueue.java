@@ -3,6 +3,9 @@ package dijkstra;
 import main.DataPoint;//used for indexes in the a path.
 import main.MyArrays; //printing arrays
 
+/**
+ * This class is a priority queue adding, removing paths to the queue.
+ */
 public class MyPriorityQueue {
 
 	private int size = 1;
@@ -18,6 +21,9 @@ public class MyPriorityQueue {
 	public MyPriorityQueue() {
 	}
 
+	/**
+	 * In the event that the number of elements have filled the queue, this function doubles the size.
+	 */
 	public void resize() {
 		size *= 2; // doubles size, allowing for more data.
 
@@ -28,18 +34,25 @@ public class MyPriorityQueue {
 		arrayOfPaths = newArrayOfPaths;
 	}
 
+	//Gets the element at the front of the queue
 	public int[] peek() {
-		return arrayOfPaths[backOfQueueIndex - 1];
+		return arrayOfPaths[frontOfQueueIndex];
 	}
 
-	public boolean empty() {
-		return backOfQueueIndex == 0;
+	//returns true if the queue has no elements.
+	public boolean notEmpty() {
+		return backOfQueueIndex != 0;
 	}
 
+	//gets the size of the queue
 	public int getSize() {
 		return backOfQueueIndex;
 	}
 
+	/**
+	 * Iterates through the queue. Shorter distance is priority, and thus, the path will be inserted accordingly.
+	 * @param newPath	a new path to add to the queue
+	 */
 	public void enqueue(int[] newPath) {
 
 		if (backOfQueueIndex == size)
@@ -47,19 +60,19 @@ public class MyPriorityQueue {
 
 		double newPathDistance = Dijkstra.calculatePathDistance(newPath, vertices);
 
-		for(int i = 0; i < arrayOfPaths.length; i++) {
-			if(arrayOfPaths[i] == null) {
+		for(int vertexIndexIterator = 0; vertexIndexIterator < arrayOfPaths.length; vertexIndexIterator++) {
+			if(arrayOfPaths[vertexIndexIterator] == null) {
 				arrayOfPaths[backOfQueueIndex] = newPath;
 				break;
 			}
-			int[] currentPath = arrayOfPaths[i];
+			int[] currentPath = arrayOfPaths[vertexIndexIterator];
 			double currentPathDistance = Dijkstra.calculatePathDistance(currentPath, vertices);
 
 			if(newPathDistance < currentPathDistance) {
 				int[][] newArray = new int[arrayOfPaths.length + 1][];
-				newArray[i] = newPath;
+				newArray[vertexIndexIterator] = newPath;
 
-				System.arraycopy(arrayOfPaths, i, newArray, i+1, arrayOfPaths.length - i);
+				System.arraycopy(arrayOfPaths, vertexIndexIterator, newArray, vertexIndexIterator+1, arrayOfPaths.length - vertexIndexIterator);
 
 				arrayOfPaths = newArray;
 				break;
@@ -68,6 +81,10 @@ public class MyPriorityQueue {
 		backOfQueueIndex++;
 	}
 
+	/**
+	 * Removes the path at the front of the queue.
+	 * @return	the path removed from the front of the queue.
+	 */
 	public int[] dequeue() {
 		if(frontOfQueueIndex == backOfQueueIndex) { //reset
 			size = 1;

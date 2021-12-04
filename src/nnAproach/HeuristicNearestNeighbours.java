@@ -101,6 +101,6 @@ public class HeuristicNearestNeighbours {
 	//Prints the results
 	@Override
 	public String toString() {
-		return "Heuristic Nearest Neighbours - Best Path: " + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - distance: " + minimumDistance;
+		return "Heuristic Nearest Neighbours - Best Path:" + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - Distance: " + minimumDistance;
 	}
 }

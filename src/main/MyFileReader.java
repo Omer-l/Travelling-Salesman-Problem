@@ -4,6 +4,13 @@ import java.io.File; //used to get the data from the file
 import java.io.FileNotFoundException; //error in the case of a file is not found.
 import java.util.Scanner; //used to take in the data from the data file
 
+/**
+ * This class contains the necessary functions for reading in the data for each algorithm class
+ * Counts the number of lines in a file
+ * Gets the x and y attribute from each line and creates an instances of a data point
+ * The instances of data points form an array
+ */
+
 public class MyFileReader {
 		public final File dataFile; //file holding coordinates.
 	    
@@ -57,7 +64,7 @@ public class MyFileReader {
 		private double[] getXandY(String[] splitLine) {
 			double[] xAndY = new double[2];
 			int xyIterator = 0; //at 0 x will be initialised, at 1 y will be initialised
-			boolean passedIndex = false; //ensures index is not taken as an x or y coordinate.
+			boolean passedIndex = false; //ensures index (first number in the line) is not taken as an x or y coordinate.
 
 			for(String partOfLine : splitLine) {
 				partOfLine = partOfLine.trim();

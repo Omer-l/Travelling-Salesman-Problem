@@ -127,6 +127,6 @@ public class BreadthFirstSearch {
 
 	@Override
 	public String toString() {
-		return "Breadth First Search - Best Path: " + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - distance: " + minimumDistance;
+		return "Breadth First Search - Best Path:" + MyArrays.toString(minimumPath) + " " + (minimumPath[0]+1) + " - Distance: " + minimumDistance;
 	}
 }

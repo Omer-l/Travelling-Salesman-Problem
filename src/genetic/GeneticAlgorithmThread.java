@@ -52,7 +52,6 @@ public class GeneticAlgorithmThread implements Runnable{
 
 	/**
 	 * This function goes through each thread that is run and chooses the thread with the best path for the TSP
-	 *
 	 * @param threads 	array of threads to be evaluated
 	 * @return 			the thread that contains the minimum distance and path.
 	 */
@@ -63,8 +62,7 @@ public class GeneticAlgorithmThread implements Runnable{
 			if (thread != null) { //guard that ensures a null thread is not accessed.
 				if (thread.getBestPathDistance() < shortestDistanceThread.getBestPathDistance())
 					shortestDistanceThread = thread;
-			} else //there exists no more threads
-				break;
+			}
 
 		return shortestDistanceThread;
 	}
@@ -86,7 +84,7 @@ public class GeneticAlgorithmThread implements Runnable{
 	@Override
 	public String toString() {
 		int startingIndex = bestPath[0]+1; //to print a path, that is, a cycle that returns to the starting index in the path
-		return "PATH: [" + MyArrays.toString(bestPath) + " " + startingIndex + " ] ->  DISTANCE: " + bestPathDistance;
+		return "Genetic Algorithm - Best Path: " + MyArrays.toString(bestPath) + " " + startingIndex + " - Distance: " + bestPathDistance;
 	}
 
 }
