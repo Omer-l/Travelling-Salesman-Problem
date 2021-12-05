@@ -88,106 +88,11 @@ public class MyPriorityQueue {
         }
     }
 
-    //	/**
-//	 * Iterates through the queue. Shorter distance is priority, and thus, the path will be inserted accordingly.
-//	 * @param newPath	a new path to add to the queue
-//	 */
-//	public void enqueue(int[] newPath) {
-//
-//		if (rear == size)
-//			resize();
-//
-//		double newPathDistance = Dijkstra.calculatePathDistance(newPath, vertices);
-//
-//		for(int vertexIndexIterator = 0; vertexIndexIterator < arrayOfPaths.length; vertexIndexIterator++) {
-//			if(arrayOfPaths[vertexIndexIterator] == null) {
-//				arrayOfPaths[rear] = newPath;
-//				break;
-//			}
-//			int[] currentPath = arrayOfPaths[vertexIndexIterator];
-//			double currentPathDistance = Dijkstra.calculatePathDistance(currentPath, vertices);
-//
-//			if(newPathDistance < currentPathDistance) {
-//				int[][] newArray = new int[arrayOfPaths.length + 1][];
-//				newArray[vertexIndexIterator] = newPath;
-//
-//				System.arraycopy(arrayOfPaths, vertexIndexIterator, newArray, vertexIndexIterator+1, arrayOfPaths.length - vertexIndexIterator);
-//
-//				arrayOfPaths = newArray;
-//				break;
-//			}
-//		}
-//		rear++;
-//	}
-
-//	//Gets the element at the front of the queue
-//	public int[] peek() {
-//		return arrayOfPaths[front];
-//	}
-//
-//	//returns true if the queue has no elements.
-//	public boolean notEmpty() {
-//		return rear != 0;
-//	}
-//
-//	//gets the size of the queue
-//	public int getSize() {
-//		return rear;
-//	}
-//
-//	/**
-//	 * Iterates through the queue. Shorter distance is priority, and thus, the path will be inserted accordingly.
-//	 * @param newPath	a new path to add to the queue
-//	 */
-//	public void enqueue(int[] newPath) {
-//
-//		if (rear == size)
-//			resize();
-//
-//		double newPathDistance = Dijkstra.calculatePathDistance(newPath, vertices);
-//
-//		for(int vertexIndexIterator = 0; vertexIndexIterator < arrayOfPaths.length; vertexIndexIterator++) {
-//			if(arrayOfPaths[vertexIndexIterator] == null) {
-//				arrayOfPaths[rear] = newPath;
-//				break;
-//			}
-//			int[] currentPath = arrayOfPaths[vertexIndexIterator];
-//			double currentPathDistance = Dijkstra.calculatePathDistance(currentPath, vertices);
-//
-//			if(newPathDistance < currentPathDistance) {
-//				int[][] newArray = new int[arrayOfPaths.length + 1][];
-//				newArray[vertexIndexIterator] = newPath;
-//
-//				System.arraycopy(arrayOfPaths, vertexIndexIterator, newArray, vertexIndexIterator+1, arrayOfPaths.length - vertexIndexIterator);
-//
-//				arrayOfPaths = newArray;
-//				break;
-//			}
-//		}
-//		rear++;
-//	}
-//
-//	/**
-//	 * Removes the path at the front of the queue.
-//	 * @return	the path removed from the front of the queue.
-//	 */
-//	public int[] dequeue() {
-//		if(front == rear) { //reset
-//			size = 1;
-//			arrayOfPaths = new int[size][];
-//			front = 0;
-//			rear = 0;
-//			int[] emptyPath = {};
-//			return emptyPath;
-//		} else {
-//			return arrayOfPaths[front++];
-//		}
-//	}
-
     public QueueNode getFront() {
         return front;
     }
 
+    //Prints the doubly linked list priority queue.
     @Override
     public String toString() {
         String s = "";
@@ -204,14 +109,4 @@ public class MyPriorityQueue {
         }
         return s;
     }
-//	@Override
-//	public String toString() {
-//		String s = "";
-//		QueueNode currentNode = front;
-//		for(int nodeIterator = 0; nodeIterator < size; nodeIterator++) {
-//			s += + "\n";
-//			currentNode = currentNode.getNextNode();
-//		}
-//		return MyArrays.toString(arrayOfPaths);
-//	}
 }
