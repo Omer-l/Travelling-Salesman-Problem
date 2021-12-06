@@ -64,46 +64,6 @@ public class Dijkstra {
 		}
 	}
 
-	public void runDijkstras(int startingPath) {
-		MyPriorityQueue paths = new MyPriorityQueue();
-
-		int[] initialPath = {startingPath};
-		paths.enqueue(initialPath);
-
-		while(!paths.empty()) {
-			int[] nextPath = paths.dequeue();
-			if(nextPath != null) {
-				if (nextPath.length == vertices.length) {
-//					System.out.println("HERE ARE THE PATHS: \n" + MyArrays.toString(nextPath)); DEL
-
-					while (!paths.empty()) {
-						int[] currentCompletePath = paths.dequeue();
-						double currentCompletePathDistance = calculatePathDistance(currentCompletePath, vertices);
-
-						if (currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
-							minimumDistance = currentCompletePathDistance;
-							minimumPath = currentCompletePath;
-//							System.out.println("NEW MIN: " + minimumDistance); DEL
-						}
-					}
-					break;
-				}
-
-				addPathsFromPoint(paths, nextPath);
-			}
-		}
-	}
-
-	/**
-	 * evaluates the front of the dequeued element, and sees if it is the length
-	 * of a complete path.
-	 * @param nextPath		dequeued path (which is an array of integers, for which, each integer is an index of a vertex)
-	 * @return				true if nextPath is a complete path with the same number of elements as there are vertices.
-	 */
-	private boolean finishedSearching(int[] nextPath) {
-		return nextPath.length >= vertices.length;
-	}
-
 	/**
 	 * This function calculates the distance between vertices
 	 * @param path  	indexes of the path
@@ -133,6 +93,45 @@ public class Dijkstra {
 		}
 
 		return totalDistance;
+	}
+
+	/**
+	 * evaluates the front of the dequeued element, and sees if it is the length
+	 * of a complete path.
+	 * @param nextPath		dequeued path (which is an array of integers, for which, each integer is an index of a vertex)
+	 * @return				true if nextPath is a complete path with the same number of elements as there are vertices.
+	 */
+	private boolean finishedSearching(int[] nextPath) {
+		return nextPath.length >= vertices.length;
+	}
+
+	public void runDijkstras(int startingPath) {
+		MyPriorityQueue paths = new MyPriorityQueue();
+
+		int[] initialPath = {startingPath};
+		paths.enqueue(initialPath);
+
+		while(!paths.empty()) {
+			int[] nextPath = paths.dequeue();
+			if(nextPath != null) {
+				if (nextPath.length == vertices.length) {
+//					System.out.println("HERE ARE THE PATHS: \n" + MyArrays.toString(nextPath)); DEL
+
+					while (!paths.empty()) {
+						int[] currentCompletePath = paths.dequeue();
+						double currentCompletePathDistance = calculatePathDistance(currentCompletePath, vertices);
+
+						if (currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
+							minimumDistance = currentCompletePathDistance;
+							minimumPath = currentCompletePath;
+//							System.out.println("NEW MIN: " + minimumDistance); DEL
+						}
+					}
+					break;
+				}
+				addPathsFromPoint(paths, nextPath);
+			}
+		}
 	}
 
 	@Override

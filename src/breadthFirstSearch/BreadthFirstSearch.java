@@ -63,50 +63,11 @@ public class BreadthFirstSearch {
 	}
 
 	/**
-	 * This is the function that runs the breadth first search algorithm
-	 * @param startingIndex		index to start algorithm from.
-	 */
-	public void runBreadthFirstSearch(int startingIndex) {
-		MyQueue paths = new MyQueue();
-
-		int[] initialPath = {startingIndex};
-		paths.enqueue(initialPath);
-		int[] nextPath;
-		while(!paths.empty()) {
-			nextPath = paths.dequeue();
-			if(nextPath.length == vertices.length) {
-
-				while(!paths.empty()) {
-					int[] currentCompletePath = paths.dequeue();
-					double currentCompletePathDistance = calculatePathDistance(currentCompletePath);
-
-					if(currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
-						minimumDistance = currentCompletePathDistance;
-						minimumPath = currentCompletePath;
-					}
-				}
-				break;
-			}
-			addPathsFromPoint(paths, nextPath);
-		}
-	}
-
-	/**
-	 * evaluates the front of the dequeued element, and sees if it is the length
-	 * of a complete path.
-	 * @param nextPath		dequeued path (which is an array of integers, for which, each integer is an index of a vertex)
-	 * @return				true if nextPath is a complete path with the same number of elements as there are vertices.
-	 */
-	private boolean finishedSearching(int[] nextPath) {
-		return nextPath.length >= vertices.length;
-	}
-	
-	/**
 	 * This function calculates the distance between vertices
-	 * 
+	 *
 	 * @param path  indexes of the path
 	 * @return distance between given indexes.
-	 * 
+	 *
 	 */
 	public double calculatePathDistance(int[] path) {
 
@@ -129,6 +90,45 @@ public class BreadthFirstSearch {
 		}
 
 		return totalDistance;
+	}
+
+	/**
+	 * evaluates the front of the dequeued element, and sees if it is the length
+	 * of a complete path.
+	 * @param nextPath		dequeued path (which is an array of integers, for which, each integer is an index of a vertex)
+	 * @return				true if nextPath is a complete path with the same number of elements as there are vertices.
+	 */
+	private boolean finishedSearching(int[] nextPath) {
+		return nextPath.length >= vertices.length;
+	}
+
+	/**
+	 * This is the function that runs the breadth first search algorithm
+	 * @param startingIndex		index to start algorithm from.
+	 */
+	public void runBreadthFirstSearch(int startingIndex) {
+		MyQueue paths = new MyQueue();
+
+		int[] initialPath = {startingIndex};
+		paths.enqueue(initialPath);
+		int[] nextPath;
+		while(!paths.empty()) { //continues on until paths are empty.
+			nextPath = paths.dequeue();
+			if(nextPath.length == vertices.length) { //the level containing the complete paths is found.
+
+				while(!paths.empty()) { //empty the complete paths and finds the shortest path.
+					int[] currentCompletePath = paths.dequeue();
+					double currentCompletePathDistance = calculatePathDistance(currentCompletePath);
+
+					if(currentCompletePathDistance < minimumDistance && finishedSearching(currentCompletePath)) {
+						minimumDistance = currentCompletePathDistance;
+						minimumPath = currentCompletePath;
+					}
+				}
+				break;
+			}
+			addPathsFromPoint(paths, nextPath);
+		}
 	}
 
 	@Override

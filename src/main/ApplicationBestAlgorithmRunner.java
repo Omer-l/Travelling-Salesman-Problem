@@ -75,7 +75,7 @@ public class ApplicationBestAlgorithmRunner {
             //condition to see if elapsed time is over 59 seconds.
             if (passedMaximumTime()) { // end this genetic algorithm search.
                 for (int runningThreadsIterator = threadIterator; runningThreadsIterator >= 0; runningThreadsIterator--)
-                    geneticAlgorithmThreads[runningThreadsIterator].setExit(true); // exit all threads so that null threads aren't evaluated when finding the best gene.
+                    geneticAlgorithmThreads[runningThreadsIterator].setEndThreadLoop(true); // exit all threads so that null threads aren't evaluated when finding the best gene.
             }
         }
 

@@ -28,7 +28,7 @@ public class ApplicationAllAlgorithmsRunner {
         breadthFirstSearch();
         dijkstras();
 
-        //BEST ALGORITHM
+        //My best algorithm below.
         System.out.println("///////////////\n" +
                 "BEST ALGORITHM:");
         String[] bestAlgorithmClassArgs = {ABSOLUTE_FILE_PATH};

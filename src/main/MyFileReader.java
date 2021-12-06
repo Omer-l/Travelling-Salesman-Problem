@@ -80,7 +80,7 @@ public class MyFileReader {
 		}
 
 
-	/**
+		/**
 	     * Counts the number of lines (data points) in the DATA_FILE
 	     * @return the number of lines in the DATA_FILE, which is the number of data points.
 	     */
@@ -89,7 +89,7 @@ public class MyFileReader {
 
 	        try {
 	            Scanner fileInput = new Scanner(dataFile);
-
+				//goes to the end of the file's last line of data.
 	            while (fileInput.hasNext()) {
 	                fileInput.nextLine(); //does not need to initialise a variable as it is just counting.
 	                trainingSetsCounter++;

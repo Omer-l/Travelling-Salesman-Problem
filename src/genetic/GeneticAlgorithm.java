@@ -132,7 +132,6 @@ public class GeneticAlgorithm {
         for (int geneIterator = 0; geneIterator < sizeOfGeneration; geneIterator++) {
             nextGeneration[geneIterator] = getOffspring(parent);
         }
-
         return nextGeneration;
     }
 
@@ -142,19 +141,19 @@ public class GeneticAlgorithm {
      * @return              the two best genes to produce an offspring from.
      */
     public int getBestGeneIndex(int[][] generation) {
-        double currentMaximumSum1 = calculatePathDistance(generation[0]); // best of the best
-        int currentBestGeneIndex1 = 0;
+        double currentGeneWithShortestPath = calculatePathDistance(generation[0]); // best of the best
+        int currentBestGeneIndex = 0; //index of the best of the best is set to 0 for now.
 
-        for (int geneIterator = 0; geneIterator < generation.length; geneIterator++) {
+        for (int geneIterator = 1; geneIterator < generation.length; geneIterator++) { //starts with 1st gene
             double sum = calculatePathDistance(generation[geneIterator]);
 
-            if (sum < currentMaximumSum1) {
-                currentMaximumSum1 = sum;
-                currentBestGeneIndex1 = geneIterator;
+            if (sum < currentGeneWithShortestPath) { //sets shorter distance gene as new best gene.
+                currentGeneWithShortestPath = sum;
+                currentBestGeneIndex = geneIterator;
             }
         }
 
-        return currentBestGeneIndex1;
+        return currentBestGeneIndex;
     }
 
     /**
@@ -167,12 +166,10 @@ public class GeneticAlgorithm {
         while (randomIndexToSwapWith == indexToMutate)
             randomIndexToSwapWith = (int) (Math.random() * numberOfAminoAcids);
 
-        int[] mutation = offspring.clone();
-
-        int tmp = mutation[indexToMutate];
-        mutation[indexToMutate] = mutation[randomIndexToSwapWith];
-        mutation[randomIndexToSwapWith] = tmp;
-        return mutation;
+        int tmp = offspring[indexToMutate];
+        offspring[indexToMutate] = offspring[randomIndexToSwapWith];
+        offspring[randomIndexToSwapWith] = tmp;
+        return offspring;
     }
 
     /**

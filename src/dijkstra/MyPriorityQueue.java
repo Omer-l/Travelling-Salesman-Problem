@@ -44,11 +44,11 @@ public class MyPriorityQueue {
                 int[] currentNodePath = currentNode.getPath();
                 double currentNodePathDistance = Dijkstra.calculatePathDistance(currentNodePath, vertices);
 
-                if (newPathDistance < currentNodePathDistance) {
+                if (newPathDistance < currentNodePathDistance) { //ensures new node is inserted here if it has a shorter path.
 
-                    if(currentNode.equals(front)) {
+                    if(currentNode.equals(front)) { //ensures the new node is added to the front of the queue
                         addFront(newNode);
-                    } else {
+                    } else { //insertion is between the first and last node of queue.
                         newNode.setNextNode(currentNode);
                         newNode.setPreviousNode(currentNode.getPreviousNode());
                         currentNode.getPreviousNode().setNextNode(newNode);
@@ -57,12 +57,12 @@ public class MyPriorityQueue {
                     vertexInserted = true;
                 }
                 if(!vertexInserted)
-                    if (currentNode.getNextNode() == null) { //end of queue
+                    if (currentNode.getNextNode() == null) { //Ensures node is inserted to the ned of the linked list
                         currentNode.setNextNode(newNode);
                         newNode.setPreviousNode(currentNode);
                         vertexInserted = true;
                     } else
-                        currentNode = currentNode.getNextNode();
+                        currentNode = currentNode.getNextNode(); //continues to traverse if there is a next node.
             }
         }
         size++;
@@ -70,7 +70,7 @@ public class MyPriorityQueue {
 
     //Replaces the front of the queue with a new node.
     public void addFront(QueueNode newNode) {
-        QueueNode tmp = (QueueNode) front.clone();
+        QueueNode tmp = (QueueNode) front.clone(); //to avoid referencing errors.
         tmp.setPreviousNode(newNode);
         this.front = newNode;
         front.setNextNode(tmp);
@@ -81,9 +81,9 @@ public class MyPriorityQueue {
         if(front == null)
             return null;
         else {
-            QueueNode tmp = (QueueNode) front.clone();
+            QueueNode tmp = (QueueNode) front.clone(); //to avoid referencing errors.
             front = front.getNextNode();
-            size--;
+            size--; //there is one less element in the list.
             return tmp.getPath();
         }
     }

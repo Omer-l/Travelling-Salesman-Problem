@@ -1,7 +1,7 @@
 package nnAproach;
 
 import main.DataPoint; //a DataPoint is a city.
-import main.MyArrays;
+import main.MyArrays; //printing arrays.
 
 /**
  * Based on the nearest neighbour algorithm, this class offers a modified version of the travelling salesman problem.
@@ -24,11 +24,11 @@ public class HeuristicNearestNeighbours {
 
 		for(int startingIndexIterator = 0; startingIndexIterator <  neighbours.length; startingIndexIterator++) {
 
-			int[] path = getPath(neighbours, startingIndexIterator);
+			int[] path = getPath(neighbours, startingIndexIterator); //gets the path using nearest neighbours approach
 
-			double pathDistance = calculatePathDistance(path, neighbours);
+			double pathDistance = calculatePathDistance(path, neighbours); //distance of the found path
 			
-			if(pathDistance < minimumDistance) {
+			if(pathDistance < minimumDistance) { //then this starting point created a better path with the nearest neighbours approach.
 				minimumDistance = pathDistance;
 				minimumPath = path;
 			}

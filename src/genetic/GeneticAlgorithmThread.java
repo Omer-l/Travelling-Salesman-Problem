@@ -14,7 +14,7 @@ public class GeneticAlgorithmThread implements Runnable{
 
 	private double bestPathDistance = Double.MAX_VALUE; //keeps track of the best distance, kept MAX_VALUE as a start
 	private int[] bestPath; //keeps track of the best complete path so far.
-	private boolean exit = false; //exits thread when true
+	private boolean endThreadLoop = false; //exits thread when true
 	private final int maximumGenerations; //maximum generations to run the genetic algorithm
 	private final GeneticAlgorithm geneticAlgorithm; //instance of the genetic algorithm to run.
 	
@@ -33,14 +33,14 @@ public class GeneticAlgorithmThread implements Runnable{
 		
 		int[][] populationOfGenes = geneticAlgorithm.initialisePopulationOfGenes();
 
-		for (int generationIterator = 0; generationIterator < maximumGenerations && !exit ; generationIterator++) {
+		for (int generationIterator = 0; generationIterator < maximumGenerations && !endThreadLoop; generationIterator++) {
 
-			int indexOfParent = geneticAlgorithm.getBestGeneIndex(populationOfGenes);
+			int indexOfParent = geneticAlgorithm.getBestGeneIndex(populationOfGenes); //gets the best parent's index from generation
 			
-			int[] parent = populationOfGenes[indexOfParent];
-			double parentDistance = geneticAlgorithm.calculatePathDistance(parent);
+			int[] parent = populationOfGenes[indexOfParent]; //sets the best parent using the best parent index.
+			double parentDistance = geneticAlgorithm.calculatePathDistance(parent); //calculates the best parent's distance
 
-			if(parentDistance < bestPathDistance) { //new global best parent .
+			if(parentDistance < bestPathDistance) { //new global best parent
 				bestPathDistance = parentDistance;
 				bestPath = parent;
 			}
@@ -76,8 +76,8 @@ public class GeneticAlgorithmThread implements Runnable{
 	/**
 	 * When exit is true, the for loop in the run function will stop
 	 */
-	public void setExit(boolean exit) {
-		this.exit = exit;
+	public void setEndThreadLoop(boolean endThreadLoop) {
+		this.endThreadLoop = endThreadLoop;
 	}
 
 	@Override

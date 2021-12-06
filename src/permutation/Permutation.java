@@ -106,14 +106,14 @@ public class Permutation {
 	
 	/**
 	 * Recursive factorial function
-	 * @param l		length of array 
+	 * @param lengthOfArray		length of array
 	 * @return      total number of permutations the path can possibly be.
 	 */
-	public int getNumberOfPermutations(int l) {
-		if(l == 1)
+	public int getNumberOfPermutations(int lengthOfArray) {
+		if(lengthOfArray == 1)
 			return 1;
 		else
-			return l * getNumberOfPermutations(l - 1);
+			return lengthOfArray * getNumberOfPermutations(lengthOfArray - 1);
 	}
 
 	//outputs results
