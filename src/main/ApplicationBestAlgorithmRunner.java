@@ -29,10 +29,10 @@ import static genetic.GeneticAlgorithmThread.getThreadWithMinimumPathGene; //for
  */
 public class ApplicationBestAlgorithmRunner {
     //The file path can change when ApplicationAllAlgorithmsRunner.java runs this class.
-    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test3_2019.txt"; //absolute path to the file
+    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test4_2018.txt"; //absolute path to the file
 
     //static constants
-    private final static long MAXIMUM_TIME = 59000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
+    private final static long MAXIMUM_TIME = 10000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
     private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer
 
     /**

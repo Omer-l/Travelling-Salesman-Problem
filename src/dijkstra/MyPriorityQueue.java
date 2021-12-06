@@ -37,9 +37,9 @@ public class MyPriorityQueue {
         else {
             double newPathDistance = Dijkstra.calculatePathDistance(newPath, vertices);
             QueueNode currentNode = this.front;
-            boolean exit = false; //determines when to exit the traversing
+            boolean vertexInserted = false; //determines when to vertexInserted the traversing
 
-            for (int nodeIterator = 0; nodeIterator <= size && !exit; nodeIterator++) {
+            for (int nodeIterator = 0; nodeIterator <= size && !vertexInserted; nodeIterator++) {
 
                 int[] currentNodePath = currentNode.getPath();
                 double currentNodePathDistance = Dijkstra.calculatePathDistance(currentNodePath, vertices);
@@ -54,13 +54,13 @@ public class MyPriorityQueue {
                         currentNode.getPreviousNode().setNextNode(newNode);
                         currentNode.setPreviousNode(newNode);
                     }
-                    exit = true;
+                    vertexInserted = true;
                 }
-                if(!exit)
+                if(!vertexInserted)
                     if (currentNode.getNextNode() == null) { //end of queue
                         currentNode.setNextNode(newNode);
                         newNode.setPreviousNode(currentNode);
-                        exit = true;
+                        vertexInserted = true;
                     } else
                         currentNode = currentNode.getNextNode();
             }
@@ -95,18 +95,18 @@ public class MyPriorityQueue {
     //Prints the doubly linked list priority queue.
     @Override
     public String toString() {
-        String s = "";
+        String doublyLinkedListString = "";
         QueueNode currentNode = front;
         for (int nodeIterator = 0; nodeIterator < size; nodeIterator++) {
             if (currentNode.getPreviousNode() != null)
-                s += "[" + MyArrays.toString(currentNode.getPreviousNode().getPath()) + ",D:" + Dijkstra.calculatePathDistance(currentNode.getPreviousNode().getPath(), vertices);
+                doublyLinkedListString += "[" + MyArrays.toString(currentNode.getPreviousNode().getPath()) + ",D:" + Dijkstra.calculatePathDistance(currentNode.getPreviousNode().getPath(), vertices);
 
-            s += " ] - [" + MyArrays.toString(currentNode.getPath()) + "" + ",D:" + Dijkstra.calculatePathDistance(currentNode.getPath(), vertices) + "] - [";
+            doublyLinkedListString += " ] - [" + MyArrays.toString(currentNode.getPath()) + "" + ",D:" + Dijkstra.calculatePathDistance(currentNode.getPath(), vertices) + "] - [";
             if (currentNode.getNextNode() != null)
-                s += MyArrays.toString(currentNode.getNextNode().getPath()) + ",D:" + Dijkstra.calculatePathDistance(currentNode.getNextNode().getPath(), vertices) + " ]\n";
+                doublyLinkedListString += MyArrays.toString(currentNode.getNextNode().getPath()) + ",D:" + Dijkstra.calculatePathDistance(currentNode.getNextNode().getPath(), vertices) + " ]\n";
 
             currentNode = currentNode.getNextNode();
         }
-        return s;
+        return doublyLinkedListString;
     }
 }

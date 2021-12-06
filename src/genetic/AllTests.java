@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.Arrays;
 
 import main.DataPoint;
+import main.MyArrays;
 import main.MyFileReader;
 import org.junit.Test;
 
@@ -23,8 +24,8 @@ public class AllTests {
 		
 		int[][] nextGeneration = app.initialisePopulationOfGenes();
 		System.out.println(Arrays.deepToString(nextGeneration));
-		for(int[] arr : nextGeneration)
-			System.out.println(Arrays.toString(arr));
+		for(int[] geneInGeneration : nextGeneration)
+			System.out.println(MyArrays.toString(geneInGeneration));
 
 		for(int[] gene : nextGeneration) {
 			//like a selection sort, except, the elements, don't move, compares each currentAminoAcid to all other amino acids.
