@@ -41,7 +41,7 @@ public class MyArrays {
     public static <E> String toString(E[] anyTypeArray) {
         String arrayToString = "";
         for (E element : anyTypeArray)
-            arrayToString += element + " ";
+            arrayToString += element + "\n";
 
         return arrayToString;
     }

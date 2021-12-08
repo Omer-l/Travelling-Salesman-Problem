@@ -19,7 +19,7 @@ import static genetic.GeneticAlgorithmThread.getThreadWithMinimumPathGene; //for
 //- ^FILE: test4_2020 - PATH: [ 24 27 21 19 13 15 31 12 18 3 1 25 29 14 28 20 11 32 9 6 23 2 17 5 30 4 22 7 16 26 10 8 ] 													-> DISTANCE: 613804.1893564754
 
 /**
- * This file contains the best algorithm for the Travelling Salesman Problem
+ * This class contains the best algorithm for the Travelling Salesman Problem
  * The file creates many threads. For each thread, there is a new instance of the genetic algorithm.
  * All threads/algorithms are stopped after 59 seconds. Then, the threads are all evaluated and the thread
  * with the best parent (also known as, the best path to all the cities) will be nominated.
@@ -28,12 +28,12 @@ import static genetic.GeneticAlgorithmThread.getThreadWithMinimumPathGene; //for
  * out of the 1000 threads will contain the best gene (path to cities).
  */
 public class ApplicationBestAlgorithmRunner {
+    private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer from the very beginning.
+    private final static long MAXIMUM_TIME = 10000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
     //The file path can change when ApplicationAllAlgorithmsRunner.java runs this class.
     private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/trainProblem1.txt"; //absolute path to the file
 
     //static constants
-    private final static long MAXIMUM_TIME = 10000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
-    private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer
 
     /**
      *  calls the function that runs the genetic algorithm threads

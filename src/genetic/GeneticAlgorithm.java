@@ -7,7 +7,7 @@ import main.DataPoint; //The class that represents the cities. In this case, ami
  * This file contains the necessary functions for the genetic algorithm.
  * Begins with creating a generation, for which, each gene in the generation contains randomised indexes of
  * possible paths. A group of amino acids' indices will form a gene.
- * Chooses the best gene (the shorteest path) from the generation of genes. This is called the parent.
+ * Chooses the best gene (the shortest path) from the generation of genes. This is called the parent.
  * Then this algorithm produces offsprings from one parent.
  * After producing an offspring, each index of the offspring has a probability of being mutated.
  * The mutation for this genetic algorithms modifies the path by swapping the indexes between two cities. (One
