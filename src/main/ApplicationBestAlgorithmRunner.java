@@ -24,46 +24,51 @@ import static genetic.GeneticAlgorithmThread.getThreadWithMinimumPathGene; //for
  * All threads/algorithms are stopped after 59 seconds. Then, the threads are all evaluated and the thread
  * with the best parent (also known as, the best path to all the cities) will be nominated.
  *
- * For instance, a 1000 threads means, 1000 genetic algorithms will be run. After 59 seconds, one thread
- * out of the 1000 threads will contain the best gene (path to cities).
+ * For instance, a 5000 threads means, 5000 genetic algorithms will be run. After 59 seconds, one thread
+ * out of the 5000 threads will contain the best gene (path to cities).
  */
 public class ApplicationBestAlgorithmRunner {
-    private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer from the very beginning.
-    private final static long MAXIMUM_TIME = 10000; // a second before 60 seconds, to allow time for thread quitting and choosing the best thread.
-    //The file path can change when ApplicationAllAlgorithmsRunner.java runs this class.
-    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/trainProblem1.txt"; //absolute path to the file
 
-    //static constants
+    private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer from the very beginning.
+    private static long maximumTime = 59000; // a second before 60 seconds, this is to allow time for thread quitting and choosing the best thread.
+
+    //The file path can change when ApplicationAllAlgorithmsRunner.java runs this class.
+    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test4-21.txt"; //INPUT THE ABSOLUTE FILE PATH HERE
 
     /**
-     *  calls the function that runs the genetic algorithm threads
+     *  Calls the function that runs the genetic algorithm threads
      *  Then, outputs the thread with the best gene (path)
      */
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         if(args.length > 0) // In case a different absolute file path is given.
             absoluteFilePath = args[0];
 
-        GeneticAlgorithmThread threadWithBestGene = runGeneticAlgorithm();
+        final MyFileReader fileReader = new MyFileReader(absoluteFilePath); //reads in the data.
+        final DataPoint[] aminoAcids = fileReader.getData(); //city objects, each city has an x and a y coordinate
+
+        GeneticAlgorithmThread threadWithBestGene = runGeneticAlgorithm(aminoAcids);
 
         //calculate elapsed time
         long elapsedTimeMs = calculateElapsedTime();
         long elapsedTimeSeconds = convertMsToSeconds(elapsedTimeMs);
         //output elapsed time
         System.out.println(threadWithBestGene + " - elapsed time: " + elapsedTimeSeconds + " seconds (or more precisely: " + elapsedTimeMs + " milliseconds).");
-	}
+    }
 
     //Runs the genetic algorithm threads and returns the thread with the best gene.
-	public static GeneticAlgorithmThread runGeneticAlgorithm() {
-        final MyFileReader fileReader = new MyFileReader(absoluteFilePath); //reads in the data.
-        final DataPoint[] aminoAcids = fileReader.getData(); //city objects, each city has an x and a y coordinate
+    private static GeneticAlgorithmThread runGeneticAlgorithm(DataPoint[] aminoAcids) {
         final int probabilityOfMutation = 15; //probability than a city will be mutated and swapped places
         final int sizeOfGeneration = 50; //size of each generation
         final int maximumGenerations = 1000; //maximum number of generations.
-        final int numberOfThreads = 5000;
+        int numberOfThreads = 5000; //can run up to 5000 threads.
 
+        if(aminoAcids.length > 25)  //then it is test 4 and the maximum time should be less.
+            numberOfThreads = 5;
+
+        ///creates an array of threads, with a capacity of 5000.
         GeneticAlgorithmThread[] geneticAlgorithmThreads = new GeneticAlgorithmThread[numberOfThreads];
 
-        // run all threads
+        // Run all threads
         for (int threadIterator = 0; threadIterator < geneticAlgorithmThreads.length && !passedMaximumTime(); threadIterator++) {
             //new instance of algorithm to run in the thread
             GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(sizeOfGeneration, probabilityOfMutation, aminoAcids);
@@ -73,31 +78,32 @@ public class ApplicationBestAlgorithmRunner {
             geneticAlgorithmThreads[threadIterator].run();
 
             //condition to see if elapsed time is over 59 seconds.
-            if (passedMaximumTime()) { // end this genetic algorithm search.
+            if (passedMaximumTime()) // end this genetic algorithm search.
                 for (int runningThreadsIterator = threadIterator; runningThreadsIterator >= 0; runningThreadsIterator--)
                     geneticAlgorithmThreads[runningThreadsIterator].setEndThreadLoop(true); // exit all threads so that null threads aren't evaluated when finding the best gene.
-            }
+
         }
 
+        //returns the thread that contains the shortest distance path.
         return getThreadWithMinimumPathGene(geneticAlgorithmThreads);
-	}
+    }
 
     /** Evaluates whether 59 seconds have passed since START_TIME.
      * After 59 seconds, this will return true, that means, all threads should end.
      * @return  true if 59 seconds has passed.
      */
-    public static boolean passedMaximumTime() {
+    private static boolean passedMaximumTime() {
         long elapsedTime = calculateElapsedTime();
-        return elapsedTime >= MAXIMUM_TIME;
+        return elapsedTime >= maximumTime;
     }
 
-    //calculates the elapsed time so far
-    public static long calculateElapsedTime() {
+    //calculates the elapsed time so far in milliseconds
+    private static long calculateElapsedTime() {
         return System.currentTimeMillis() - START_TIME_MS;
     }
 
     //converts milliseconds to seconds, useful for displaying the elapsed time at the end of the algorithm.
-    public static long convertMsToSeconds(long milliseconds) {
+    private static long convertMsToSeconds(long milliseconds) {
         return milliseconds / 1000;
     }
 }
