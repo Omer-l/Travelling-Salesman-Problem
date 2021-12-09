@@ -33,7 +33,7 @@ public class GeneticAlgorithm {
 
     /**
      * Generates a population of genes. Each index of a gene is an index of a city/amino acid.
-     * @return an arbitrarily created population of genes, for which, a gene has no duplicate indexes.
+     * @return an arbitrarily created population of genes, for which, any gene has no duplicate indexes.
      */
     public int[][] initialisePopulationOfGenes() {
         int[][] population = new int[sizeOfGeneration][numberOfAminoAcids]; // SIZE number of genes in the population

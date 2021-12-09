@@ -52,7 +52,7 @@ public class ApplicationBestAlgorithmRunner {
         System.out.println(threadWithBestGene + " - elapsed time: " + elapsedTimeSeconds + " seconds (or more precisely: " + elapsedTimeMs + " milliseconds).");
 	}
 
-    //runs the genetic algorithm threads and returns the thread with the best gene.
+    //Runs the genetic algorithm threads and returns the thread with the best gene.
 	public static GeneticAlgorithmThread runGeneticAlgorithm() {
         final MyFileReader fileReader = new MyFileReader(absoluteFilePath); //reads in the data.
         final DataPoint[] aminoAcids = fileReader.getData(); //city objects, each city has an x and a y coordinate
