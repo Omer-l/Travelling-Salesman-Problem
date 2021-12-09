@@ -25,7 +25,11 @@ public class ConvexHullInsertion {
         for (int dataPointIterator = 1; dataPointIterator < dataPoints.length; dataPointIterator++) {
             DataPoint dataPoint = dataPoints[dataPointIterator];
 
-            if (dataPoint.getY() < currentLowest.getY()) { //ensures the lowest index is changed if dataPoint's y-coordinate is lower.
+            if(dataPoint.getY() == currentLowest.getY()) {
+                if(dataPoint.getX() < currentLowest.getX())
+                    currentLowest = dataPoint;
+            }
+            else if (dataPoint.getY() < currentLowest.getY()) { //ensures the lowest index is changed if dataPoint's y-coordinate is lower.
                 currentLowest = dataPoint;
                 currentLowestIndex = dataPointIterator;
             }
@@ -101,28 +105,54 @@ public class ConvexHullInsertion {
     }
 
     /**
+     * By the proof that the cross product of two vectors can be used to calculate the signed area of a parallelogram.
+     * The signed tells the direction of the length of the parallelogram. The cross product is a perpendicular vector
+     * who's length is equal to the area of the parallelogram.
+     * @param point1    the 2nd previous point from the current point
+     * @param point2    the 1st previous point from the current point
+     * @param point3    the current point
+     * @return          -1 if point 3 is clockwise, -1 anti-clockwise, 0 collinear.
+     */
+    public int counterClockwise(DataPoint point1, DataPoint point2, DataPoint point3) {
+        double area = (point2.getX() - point1.getX()) * (point3.getY() - point1.getY()) - (point2.getY() - point1.getY()) * (point3.getX() - point1.getX());
+
+        if(area < 0)
+            return -1; //means point3 is clockwise
+        else if(area > 0)
+            return 1; //means point3 is counter-clockwise
+        else
+            return 0; //point3 is collinear.
+    }
+
+    /**
      * Adds next point's index depending on the sorted list of angles and previous angles.
      * @param path                  is the current traversed path
      * @param indexesAndAngles      is a sorted list of arrays, for which, each array contains the index of the city and an angle from starting index
+     * @param iteratedPointIndex    is the current potential index to add to the path.
      * @return                      next point to visit.
      */
-    public int getNextPoint(ArrayList<Integer> path, ArrayList<double[]> indexesAndAngles) {
-        if(indexesAndAngles.size() == dataPoints.length - 1) {
-            indexesAndAngles.remove(0);
-            return (int) indexesAndAngles.get(0)[0];
-        } else { //there are now 2 previous visited cities.
+    public int getNextPoint(MyStack path, ArrayList<double[]> indexesAndAngles, int iteratedPointIndex) {
+        DataPoint point = dataPoints[path.pop()];
+        DataPoint nextPoint = dataPoints[iteratedPointIndex];
+        int nextPointIndex = iteratedPointIndex;
 
+        while(!path.isEmpty() && counterClockwise(dataPoints[path.peek()], point, nextPoint) <= 0) {
+            nextPointIndex = path.pop();
+            nextPoint = dataPoints[nextPointIndex];
         }
+
+        path.add(nextPointIndex);
         return -1;
     }
 
+    //Runs the necessary functions and the convex hull algorithm.
     public void runConvexHullInsertion(ArrayList<double[]> indexesAndAngles) {
-        ArrayList<Integer> path = new ArrayList<>();
-        ArrayList<Integer> stack = new ArrayList<>();
-        path.add(getLowestDataPointIndex()); //adds the lowest city to path.
+        MyStack path = new MyStack(); //this is a stack-like path. Paths creating a clockwise turn are deleted.
+        path.push(getLowestDataPointIndex()); //adds the lowest city to path as it is a guarantee.
+        path.push((int)indexesAndAngles.get(0)[0]); //adds 1st in the sorted list for evaluation.
 
         for(int dataPointIterator = 2; dataPointIterator < indexesAndAngles.size(); dataPointIterator++) {
-            int nextCityToVisit = getNextPoint(path, indexesAndAngles);
+            int nextCityToVisit = getNextPoint(path, indexesAndAngles, 2);
         }
     }
 

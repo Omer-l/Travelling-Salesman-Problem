@@ -57,27 +57,27 @@ public class ConvexHullInsertionTest {
         ArrayList<double[]> indexesAndAngles = convexHullInsertion.getAnglesToAllPoints(startPointIndex);
 
         int expected = 6;
-        int actual = convexHullInsertion.getNextPoint(new ArrayList<Integer>(), indexesAndAngles);
+        int actual = convexHullInsertion.getNextPoint(new MyStack(), indexesAndAngles, 2);
 
         assertEquals(expected, actual);
     }
 
     @org.junit.Test
-    public void getNextPoint2ndRun() {
+    public void getNextPoint() {
         MyFileReader fileReader = new MyFileReader(System.getProperty("user.dir")
-                + "/Resources/trainProblem2.txt");
+                + "/Resources/DELETE.txt");
         ConvexHullInsertion convexHullInsertion = new ConvexHullInsertion(fileReader.getData());
         int startPointIndex = convexHullInsertion.getLowestDataPointIndex();
         ArrayList<double[]> indexesAndAngles = convexHullInsertion.getAnglesToAllPoints(startPointIndex);
-        indexesAndAngles.remove(0); //remove first by default
-
-        ArrayList<Integer> path = new ArrayList<>();
-        path.add(7);
-        path.add(6);
-        int expected = 6;
-        int actual = convexHullInsertion.getNextPoint(path, indexesAndAngles);
-
-        assertEquals(expected, actual);
+        MyStack path = new MyStack();
+        path.push(startPointIndex);
+        path.push((int)indexesAndAngles.get(0)[0]);
+        convexHullInsertion.getNextPoint(path, indexesAndAngles, 2);
+        convexHullInsertion.getNextPoint(path, indexesAndAngles, 3);
+        convexHullInsertion.getNextPoint(path, indexesAndAngles, 4);
+        convexHullInsertion.getNextPoint(path, indexesAndAngles, 5);
+        convexHullInsertion.getNextPoint(path, indexesAndAngles, 6);
+        System.out.println(path);
     }
 
 }
