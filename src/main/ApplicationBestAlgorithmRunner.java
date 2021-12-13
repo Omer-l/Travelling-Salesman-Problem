@@ -52,7 +52,11 @@ public class ApplicationBestAlgorithmRunner {
         long elapsedTimeMs = calculateElapsedTime();
         long elapsedTimeSeconds = convertMsToSeconds(elapsedTimeMs);
         //output elapsed time
-        System.out.println(threadWithBestGene + " - elapsed time: " + elapsedTimeSeconds + " seconds (or more precisely: " + elapsedTimeMs + " milliseconds).");
+        if(aminoAcids.length < 25) //ensures the right output is made depending on the test file.
+            System.out.println(threadWithBestGene + " - elapsed time: " + elapsedTimeSeconds + " seconds (or more precisely: " + elapsedTimeMs + " milliseconds).");
+        else
+            System.out.println(threadWithBestGene + " - elapsed time: " + elapsedTimeMs + " milliseconds (or more precisely: " + convertMsToNanoseconds(elapsedTimeMs) + " nanoseconds).");
+
     }
 
     //Runs the genetic algorithm threads and returns the thread with the best gene.
@@ -63,7 +67,7 @@ public class ApplicationBestAlgorithmRunner {
         int numberOfThreads = 5000; //can run up to 5000 threads.
 
         if(aminoAcids.length > 25)  //then it is test 4 and the maximum time should be less.
-            numberOfThreads = 5;
+            numberOfThreads = 1;
 
         ///creates an array of threads, with a capacity of 5000.
         GeneticAlgorithmThread[] geneticAlgorithmThreads = new GeneticAlgorithmThread[numberOfThreads];
@@ -105,5 +109,10 @@ public class ApplicationBestAlgorithmRunner {
     //converts milliseconds to seconds, useful for displaying the elapsed time at the end of the algorithm.
     private static long convertMsToSeconds(long milliseconds) {
         return milliseconds / 1000;
+    }
+
+    //converts milliseconds to nanoseconds
+    private static long convertMsToNanoseconds(long milliseconds) {
+        return (long)(milliseconds * 1000000);
     }
 }
