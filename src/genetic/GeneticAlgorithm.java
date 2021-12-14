@@ -157,7 +157,7 @@ public class GeneticAlgorithm {
     }
 
     /**
-     * This function replaces the given index with a random number 0-9.
+     * This function swaps the given index with another random index.
      * @return gene with a modified digit at the given index.
      */
     public int[] getMutation(int[] offspring, int indexToMutate) {
