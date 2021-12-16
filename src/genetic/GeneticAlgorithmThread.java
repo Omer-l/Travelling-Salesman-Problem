@@ -10,7 +10,7 @@ import main.MyArrays; //printing arrays
  *	As the genetic algorithm is run, the best gene from the generation of genes
  *	is chosen, and stored as 'bestPath' and 'bestPathDistance' in this thread.
  */
-public class GeneticAlgorithmThread implements Runnable{
+public class GeneticAlgorithmThread extends Thread{
 
 	private double bestPathDistance = Double.MAX_VALUE; //keeps track of the best distance, kept MAX_VALUE as a start
 	private int[] bestPath; //keeps track of the best complete path so far.
@@ -82,8 +82,11 @@ public class GeneticAlgorithmThread implements Runnable{
 
 	@Override
 	public String toString() {
-		int startingIndex = bestPath[0]+1; //to print a path, that is, a cycle that returns to the starting index in the path
-		return "Genetic Algorithm - Best Path: " + MyArrays.toString(bestPath) + " " + startingIndex + " - Distance: " + bestPathDistance;
+		if(this.bestPath != null) {
+			int startingIndex = bestPath[0] + 1; //to print a path, that is, a cycle that returns to the starting index in the path
+			return "Genetic Algorithm - Best Path: " + MyArrays.toString(bestPath) + " " + startingIndex + " - Distance: " + bestPathDistance;
+		} else
+			return "None";
 	}
 
 }

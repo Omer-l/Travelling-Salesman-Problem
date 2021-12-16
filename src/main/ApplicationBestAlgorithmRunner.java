@@ -30,7 +30,7 @@ import static genetic.GeneticAlgorithmThread.getThreadWithMinimumPathGene; //for
 public class ApplicationBestAlgorithmRunner {
 
     private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer from the very beginning.
-    private static long maximumTime = 59000; // a second before 60 seconds, this is to allow time for thread quitting and choosing the best thread.
+    private final static long maximumTime = 1000; // a second before 60 seconds, this is to allow time for thread quitting and choosing the best thread.
 
     //The file path can change when ApplicationAllAlgorithmsRunner.java runs this class.
     private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test4-21.txt"; //INPUT THE ABSOLUTE FILE PATH HERE
@@ -67,7 +67,7 @@ public class ApplicationBestAlgorithmRunner {
         int numberOfThreads = 5000; //can run up to 5000 threads.
 
         if(aminoAcids.length > 25)  //then it is test 4 and the maximum time should be less.
-            numberOfThreads = 1;
+            numberOfThreads = 40;
 
         ///creates an array of threads, with a capacity of 5000.
         GeneticAlgorithmThread[] geneticAlgorithmThreads = new GeneticAlgorithmThread[numberOfThreads];
@@ -79,7 +79,7 @@ public class ApplicationBestAlgorithmRunner {
             //new instance of thread that runs genetic algorithm and all of its generations.
             geneticAlgorithmThreads[threadIterator] = new GeneticAlgorithmThread(maximumGenerations, geneticAlgorithm);
             //run the instance of the thread containing the algorithm.
-            geneticAlgorithmThreads[threadIterator].run();
+            geneticAlgorithmThreads[threadIterator].start();
 
             //condition to see if elapsed time is over 59 seconds.
             if (passedMaximumTime()) // end this genetic algorithm search.
@@ -113,6 +113,6 @@ public class ApplicationBestAlgorithmRunner {
 
     //converts milliseconds to nanoseconds
     private static long convertMsToNanoseconds(long milliseconds) {
-        return (long)(milliseconds * 1000000);
+        return (milliseconds * 1000000);
     }
 }
