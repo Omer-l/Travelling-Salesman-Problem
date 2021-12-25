@@ -1,6 +1,6 @@
 package dijkstra;
 
-import main.DataPoint;//used for indexes in the a path.
+import main.DataPoint;//used for indexes in the path.
 import main.MyArrays; //printing arrays
 
 /**

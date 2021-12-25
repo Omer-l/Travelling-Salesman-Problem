@@ -108,7 +108,7 @@ public class GeneticAlgorithm {
     }
 
     /**
-     * This function returns an offspring from two parents.
+     * This function returns an offspring from the parent.
      * @param parent best parent
      * @return an offspring from the crossover parts of both parents
      */

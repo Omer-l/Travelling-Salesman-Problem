@@ -14,7 +14,7 @@ import permutation.Permutation; //Permutation approach
  */
 public class ApplicationAllAlgorithmsRunner {
     // static constants
-    private final static String ABSOLUTE_FILE_PATH = System.getProperty("user.dir") + "/Resources/trainProblem2.txt"; // absolute path to the file
+    private final static String ABSOLUTE_FILE_PATH = System.getProperty("user.dir") + "/Resources/test4-21.txt"; // absolute path to the file
     private static final MyFileReader MY_FILE_READER = new MyFileReader(ABSOLUTE_FILE_PATH); // reads in the data.
     private static final DataPoint[] CITIES = MY_FILE_READER.getData(); // city objects, each city has an x and a y
     // coordinate

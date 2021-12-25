@@ -33,7 +33,7 @@ public class ApplicationBestAlgorithmRunner {
     private final static long maximumTime = 1000; // a second before 60 seconds, this is to allow time for thread quitting and choosing the best thread.
 
     //The file path can change when ApplicationAllAlgorithmsRunner.java runs this class.
-    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test4-21.txt"; //INPUT THE ABSOLUTE FILE PATH HERE
+    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test3-21.txt"; //INPUT THE ABSOLUTE FILE PATH HERE
 
     /**
      *  Calls the function that runs the genetic algorithm threads
@@ -64,7 +64,7 @@ public class ApplicationBestAlgorithmRunner {
         final int probabilityOfMutation = 15; //probability than a city will be mutated and swapped places
         final int sizeOfGeneration = 50; //size of each generation
         final int maximumGenerations = 1000; //maximum number of generations.
-        int numberOfThreads = 5000; //can run up to 5000 threads.
+        int numberOfThreads = 800; //can run up to 5000 threads.
 
         if(aminoAcids.length > 25)  //then it is test 4 and the maximum time should be less.
             numberOfThreads = 40;
@@ -82,12 +82,11 @@ public class ApplicationBestAlgorithmRunner {
             geneticAlgorithmThreads[threadIterator].start();
 
             //condition to see if elapsed time is over 59 seconds.
-            if (passedMaximumTime()) // end this genetic algorithm search.
+            if (passedMaximumTime()) // end this genetic algorithm.
                 for (int runningThreadsIterator = threadIterator; runningThreadsIterator >= 0; runningThreadsIterator--)
                     geneticAlgorithmThreads[runningThreadsIterator].setEndThreadLoop(true); // exit all threads so that null threads aren't evaluated when finding the best gene.
 
         }
-
         //returns the thread that contains the shortest distance path.
         return getThreadWithMinimumPathGene(geneticAlgorithmThreads);
     }
