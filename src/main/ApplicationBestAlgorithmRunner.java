@@ -31,9 +31,9 @@ public class ApplicationBestAlgorithmRunner {
 
     private final static long START_TIME_MS = System.currentTimeMillis(); // starts timer from the very beginning.
     private final static long maximumTime = 1000; // a second before 60 seconds, this is to allow time for thread quitting and choosing the best thread.
-
+    private final static int minimumCitiesInCompetition = 25;
     //The file path can change when ApplicationAllAlgorithmsRunner.java runs this class.
-    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test3-21.txt"; //INPUT THE ABSOLUTE FILE PATH HERE
+    private static String absoluteFilePath = System.getProperty("user.dir") + "/Resources/test1-21.txt"; //INPUT THE ABSOLUTE FILE PATH HERE
 
     /**
      *  Calls the function that runs the genetic algorithm threads
@@ -52,7 +52,7 @@ public class ApplicationBestAlgorithmRunner {
         long elapsedTimeMs = calculateElapsedTime();
         long elapsedTimeSeconds = convertMsToSeconds(elapsedTimeMs);
         //output elapsed time
-        if(aminoAcids.length < 25) //ensures the right output is made depending on the test file.
+        if(aminoAcids.length < minimumCitiesInCompetition) //ensures the right output is made depending on the test file.
             System.out.println(threadWithBestGene + " - elapsed time: " + elapsedTimeSeconds + " seconds (or more precisely: " + elapsedTimeMs + " milliseconds).");
         else
             System.out.println(threadWithBestGene + " - elapsed time: " + elapsedTimeMs + " milliseconds (or more precisely: " + convertMsToNanoseconds(elapsedTimeMs) + " nanoseconds).");
@@ -64,10 +64,10 @@ public class ApplicationBestAlgorithmRunner {
         final int probabilityOfMutation = 15; //probability than a city will be mutated and swapped places
         final int sizeOfGeneration = 50; //size of each generation
         final int maximumGenerations = 1000; //maximum number of generations.
-        int numberOfThreads = 800; //can run up to 5000 threads.
+        int numberOfThreads = 100; //can run up to 5000 threads.
 
-        if(aminoAcids.length > 25)  //then it is test 4 and the maximum time should be less.
-            numberOfThreads = 40;
+        if(aminoAcids.length > minimumCitiesInCompetition)  //then it is test 4 and the maximum time should be less.
+            numberOfThreads = 5000;
 
         ///creates an array of threads, with a capacity of 5000.
         GeneticAlgorithmThread[] geneticAlgorithmThreads = new GeneticAlgorithmThread[numberOfThreads];
